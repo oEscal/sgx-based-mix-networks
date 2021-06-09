@@ -40,79 +40,23 @@
 #include "sgx_tcrypto.h"
 
 
-void encrypt() {
-    /*
-    unsigned char p_n[256];
-    unsigned char p_d[256];
-    unsigned char p_p[256];
-    unsigned char p_q[256];
-    unsigned char p_dmp1[256];
-    unsigned char p_dmq1[256];
-    unsigned char p_iqmp[256];
+/* 
+ * printf: 
+ *   Invokes OCALL to display the enclave buffer to the terminal.
+ */
+void printf(const char *fmt, ...)
+{
+    char buf[BUFSIZ] = {'\0'};
+    va_list ap;
+    va_start(ap, fmt);
+    vsnprintf(buf, BUFSIZ, fmt, ap);
+    va_end(ap);
+    ocall_print_string(buf);
+}
 
-    int n_byte_size = 256;
-    int e_byte_size = 4;
-    long e = 65537;
 
-    sgx_status_t se_ret = SGX_SUCCESS;
-
-    void *private_key[256];
-
-    se_ret = sgx_create_rsa_key_pair(
-        n_byte_size, e_byte_size, p_n, p_d, (unsigned char*)&e, p_p, p_q, p_dmp1, p_dmq1, p_iqmp);
-
-    if(se_ret != SGX_SUCCESS)
-    {
-        return;
-    }
-
-    se_ret = sgx_create_rsa_priv2_key(
-        n_byte_size, e_byte_size, (unsigned char*)&e, p_p, p_q, p_dmp1, p_dmq1, p_iqmp, private_key);
-
-        if(se_ret != SGX_SUCCESS)
-    {
-        return;
-    }
-
-	char *data = "ola";
-    unsigned char *dst = NULL;
-
-	void *public_key = NULL;
-
-    // sgx_create_rsa_key_pair
-	size_t pub_key_size = 256;
-
-    // sgx_status_t ret_create_public_key = sgx_create_rsa_pub1_key(n_byte_size, e_byte_size, p_n, (unsigned char*)&e, pub_key);
-	// se_ret = sgx_create_rsa_pub1_key(sizeof(module),
-    //                              sizeof(exponent), module, exponent, pub_key);
-    se_ret = sgx_create_rsa_pub1_key(n_byte_size, e_byte_size, p_n, (unsigned char*)&e, &public_key);
-
-    if(se_ret != SGX_SUCCESS)
-    {
-        return;
-    }
-
-    // printf("%s\n", (char*)public_key);
-
-	// se_ret = sgx_rsa_pub_encrypt_sha256(public_key, NULL, &pub_key_size, data, sizeof(data));
-    // // printf("%zu\n", pub_key_size);
-    // if(SGX_SUCCESS != se_ret)
-    // {
-    //     return;
-    //     // return se_ret;
-    // }
-
-    se_ret = sgx_rsa_pub_encrypt_sha256(public_key, dst, &pub_key_size, (unsigned char *)data, sizeof(data));
-    printf("%s", dst);
-    if(SGX_SUCCESS != se_ret)
-    {
-        printf("%d\n", (int)se_ret);
-        return;
-        // return se_ret;
-    }
-    */
-
-    unsigned char p_n[256];
+void encrypt(unsigned char *p_n) {
+    // unsigned char p_n[256];
     unsigned char p_d[256];
     unsigned char p_p[256];
     unsigned char p_q[256];
@@ -184,26 +128,4 @@ void encrypt() {
         printf("Decrypted MESSAGE:");
         printf("%s\n", (char *)decrypted_pout_data);
     }
-
 }
-
-/* 
- * printf: 
- *   Invokes OCALL to display the enclave buffer to the terminal.
- */
-void printf(const char *fmt, ...)
-{
-    char buf[BUFSIZ] = {'\0'};
-    va_list ap;
-    va_start(ap, fmt);
-    vsnprintf(buf, BUFSIZ, fmt, ap);
-    va_end(ap);
-    ocall_print_string(buf);
-}
-
-void printf_helloworld()
-{
-    encrypt();
-    // printf("Hello World\n");
-}
-

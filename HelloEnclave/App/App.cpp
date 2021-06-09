@@ -242,7 +242,9 @@ int SGX_CDECL main(int argc, char *argv[])
         return -1; 
     }
  
-    printf_helloworld(global_eid);
+    unsigned char p_n[256];
+    encrypt(global_eid, p_n);
+    printf("%s\n", p_n);
 
     /* Destroy the enclave */
     sgx_destroy_enclave(global_eid);

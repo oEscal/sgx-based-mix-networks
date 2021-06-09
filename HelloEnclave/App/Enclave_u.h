@@ -21,7 +21,7 @@ extern "C" {
 void SGX_UBRIDGE(SGX_NOCONVENTION, ocall_print_string, (const char* str));
 #endif
 
-sgx_status_t printf_helloworld(sgx_enclave_id_t eid);
+sgx_status_t encrypt(sgx_enclave_id_t eid, unsigned char* p_n);
 
 #ifdef __cplusplus
 }

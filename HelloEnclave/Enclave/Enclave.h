@@ -40,9 +40,8 @@
 extern "C" {
 #endif
 
-void encrypt();
+void encrypt(unsigned char *p_n);
 void printf(const char *fmt, ...);
-void printf_helloworld();
 
 #if defined(__cplusplus)
 }

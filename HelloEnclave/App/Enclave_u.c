@@ -1,6 +1,10 @@
 #include "Enclave_u.h"
 #include <errno.h>
 
+typedef struct ms_encrypt_t {
+	unsigned char* ms_p_n;
+} ms_encrypt_t;
+
 typedef struct ms_ocall_print_string_t {
 	const char* ms_str;
 } ms_ocall_print_string_t;
@@ -22,10 +26,12 @@ static const struct {
 		(void*)Enclave_ocall_print_string,
 	}
 };
-sgx_status_t printf_helloworld(sgx_enclave_id_t eid)
+sgx_status_t encrypt(sgx_enclave_id_t eid, unsigned char* p_n)
 {
 	sgx_status_t status;
-	status = sgx_ecall(eid, 0, &ocall_table_Enclave, NULL);
+	ms_encrypt_t ms;
+	ms.ms_p_n = p_n;
+	status = sgx_ecall(eid, 0, &ocall_table_Enclave, &ms);
 	return status;
 }
 

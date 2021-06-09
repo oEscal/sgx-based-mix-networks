@@ -40,7 +40,9 @@ enclave {
      */
     
     trusted {
-        public void printf_helloworld();
+        public void encrypt(
+            [out, size=256]unsigned char *p_n
+        );
     };
 
     /* 

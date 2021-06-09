@@ -15,7 +15,7 @@
 extern "C" {
 #endif
 
-void printf_helloworld(void);
+void encrypt(unsigned char* p_n);
 
 sgx_status_t SGX_CDECL ocall_print_string(const char* str);
 
