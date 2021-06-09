@@ -40,7 +40,15 @@
 
 #include "sgx_urts.h"
 #include "App.h"
-#include "Enclave_u.h"
+
+
+#include "PeerReceiver.h"
+#include <thread>
+#include <unistd.h>
+#include <memory>
+#include <exception>
+using namespace std;
+
 
 /* Global EID shared by multiple threads */
 sgx_enclave_id_t global_eid = 0;
@@ -227,6 +235,21 @@ void ocall_print_string(const char *str)
     printf("%s", str);
 }
 
+//The PeerReceiver Thread act like a server
+void StartThePeerReceiver(string PeerReceiverName, string PeerReceiverPort,  sgx_enclave_id_t *eid){
+
+	std::unique_ptr<PeerReceiver> rec(new PeerReceiver(PeerReceiverName, PeerReceiverPort, eid));
+	rec->Start();
+}
+
+void init_mix(){
+	string PeerReceiverName ="localhost";
+	string PeerReceiverPort ="1234";
+
+	thread PeerReceiver(StartThePeerReceiver, PeerReceiverName, PeerReceiverPort, &global_eid);
+	PeerReceiver.join();
+}
+
 
 /* Application entry */
 int SGX_CDECL main(int argc, char *argv[])
@@ -241,14 +264,15 @@ int SGX_CDECL main(int argc, char *argv[])
         getchar();
         return -1; 
     }
+
+    cout <<  global_eid << endl;
+
+    init_mix();
  
-    unsigned char p_n[256];
-    encrypt(global_eid, p_n);
-    printf("%s\n", p_n);
+    // printf("%s\n", p_n);
 
     /* Destroy the enclave */
     sgx_destroy_enclave(global_eid);
     
     return 0;
 }
-
