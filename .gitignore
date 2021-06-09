@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+SGX101_sample_code
+linux-sgx
