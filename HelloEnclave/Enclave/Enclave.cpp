@@ -145,9 +145,9 @@ void import_message(unsigned char *message) {
         printf("Encrypted message with success!\n");
     }
 
-    printf("%s\n", (char *)pout_data);
-
     buffer.push_back(pout_data);
+
+    printf("%d\n", buffer.size());
 }
 
 
