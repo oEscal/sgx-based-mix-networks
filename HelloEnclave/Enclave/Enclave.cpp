@@ -33,11 +33,18 @@
 #include <stdarg.h>
 #include <stdio.h>      /* vsnprintf */
 #include <cstring>
+#include <vector>
 
 #include "Enclave.h"
 #include "Enclave_t.h"  /* print_string */
 
 #include "sgx_tcrypto.h"
+
+
+long e = 65537;
+void *private_key = NULL;
+void *previous_public_key = NULL;
+std::vector<unsigned char *> buffer;
 
 
 /* 
@@ -55,8 +62,8 @@ void printf(const char *fmt, ...)
 }
 
 
-void encrypt(unsigned char *p_n) {
-    // unsigned char p_n[256];
+int n_byte_size = 256;
+void create_keys(unsigned char *p_n) {
     unsigned char p_d[256];
     unsigned char p_p[256];
     unsigned char p_q[256];
@@ -64,11 +71,8 @@ void encrypt(unsigned char *p_n) {
     unsigned char p_dmq1[256];
     unsigned char p_iqmp[256];
 
-    int n_byte_size = 256;
-    long e = 65537;
-
-
-    sgx_status_t ret_create_key_params = sgx_create_rsa_key_pair(n_byte_size, sizeof(e), p_n, p_d, (unsigned char*)&e, p_p, p_q, p_dmp1, p_dmq1, p_iqmp);
+    sgx_status_t ret_create_key_params = sgx_create_rsa_key_pair(
+        n_byte_size, sizeof(e), p_n, p_d, (unsigned char*)&e, p_p, p_q, p_dmp1, p_dmq1, p_iqmp);
 
     if (ret_create_key_params != SGX_SUCCESS) {
         printf("Key param generation failed");
@@ -76,22 +80,72 @@ void encrypt(unsigned char *p_n) {
         // printf((char *) p_q);
     }
 
-    void *private_key = NULL;
-
-    sgx_status_t ret_create_private_key = sgx_create_rsa_priv2_key(n_byte_size, sizeof(e), (unsigned char*)&e, p_p, p_q, p_dmp1, p_dmq1, p_iqmp, &private_key);
+    sgx_status_t ret_create_private_key = sgx_create_rsa_priv2_key(
+        n_byte_size, sizeof(e), (unsigned char*)&e, p_p, p_q, p_dmp1, p_dmq1, p_iqmp, &private_key);
 
     if ( ret_create_private_key != SGX_SUCCESS) {
         printf("Private key generation failed");
     }
 
-    void *public_key = NULL;
+    // void *public_key = NULL;
+// 
+    // sgx_status_t ret_create_public_key = sgx_create_rsa_pub1_key(n_byte_size, sizeof(e), p_n, (unsigned char*)&e, &public_key);
+// 
+    // if ( ret_create_public_key != SGX_SUCCESS) {
+    //     printf("Public key generation failed");
+    // }
+}
 
-    sgx_status_t ret_create_public_key = sgx_create_rsa_pub1_key(n_byte_size, sizeof(e), p_n, (unsigned char*)&e, &public_key);
-
+void set_public_key(unsigned char *module) {
+    sgx_status_t ret_create_public_key = sgx_create_rsa_pub1_key(
+        n_byte_size, sizeof(e), module, (unsigned char*)&e, &previous_public_key);
     if ( ret_create_public_key != SGX_SUCCESS) {
         printf("Public key generation failed");
     }
+}
 
+void import_message(unsigned char *message) {
+   for(int a = 0; a < 256; ++a)
+    {
+    int p = *(message + a);// or int p = data[a];
+    printf("%d", p);
+    }
+    printf("\n");
+
+    size_t decrypted_out_len = 0;
+
+    sgx_status_t ret_determine_decrypt_len = sgx_rsa_priv_decrypt_sha256(
+        private_key, NULL, &decrypted_out_len, message, 256);
+    printf("%d\n", decrypted_out_len);
+
+    if ( ret_determine_decrypt_len != SGX_SUCCESS) {
+        printf("Determination of decrypted output length failed");
+    }
+
+    unsigned char decrypted_pout_data[decrypted_out_len];
+
+    sgx_status_t ret_decrypt = sgx_rsa_priv_decrypt_sha256(
+        private_key, decrypted_pout_data, &decrypted_out_len, message, 256);
+
+    printf("%d\n", (int)ret_decrypt);
+    printf("Decrypted MESSAGE:");
+    printf("%s\n", (char *)decrypted_pout_data);
+    if (ret_decrypt != SGX_SUCCESS) {
+        printf("Decryption failed");
+    } else {
+        printf("Decrypted MESSAGE:");
+        printf("%s\n", (char *)decrypted_pout_data);
+    }
+}
+
+void cipher_message(unsigned char *result) {
+
+}
+
+
+/*
+void encrypt(unsigned char *p_n) {
+    // unsigned char p_n[256];
     char * pin_data = "Hello World!";
     size_t out_len = 0;
 
@@ -129,3 +183,4 @@ void encrypt(unsigned char *p_n) {
         printf("%s\n", (char *)decrypted_pout_data);
     }
 }
+*/

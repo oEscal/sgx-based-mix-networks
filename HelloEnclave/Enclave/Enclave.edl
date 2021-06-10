@@ -40,8 +40,16 @@ enclave {
      */
     
     trusted {
-        public void encrypt(
+        public void create_keys(
             [out, size=256]unsigned char *p_n
+        );
+
+        public void import_message(
+            [in, size=256]unsigned char *message
+        );
+
+        public void set_public_key(
+            [in, size=256]unsigned char *module
         );
     };
 

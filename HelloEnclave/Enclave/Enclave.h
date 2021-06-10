@@ -41,6 +41,8 @@ extern "C" {
 #endif
 
 void encrypt(unsigned char *p_n);
+void import_message(unsigned char *message);
+void set_public_key(unsigned char *module);
 void printf(const char *fmt, ...);
 
 #if defined(__cplusplus)

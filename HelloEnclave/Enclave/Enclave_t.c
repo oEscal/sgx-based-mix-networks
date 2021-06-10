@@ -27,22 +27,30 @@
 )
 
 
-typedef struct ms_encrypt_t {
+typedef struct ms_create_keys_t {
 	unsigned char* ms_p_n;
-} ms_encrypt_t;
+} ms_create_keys_t;
+
+typedef struct ms_import_message_t {
+	unsigned char* ms_message;
+} ms_import_message_t;
+
+typedef struct ms_set_public_key_t {
+	unsigned char* ms_module;
+} ms_set_public_key_t;
 
 typedef struct ms_ocall_print_string_t {
 	const char* ms_str;
 } ms_ocall_print_string_t;
 
-static sgx_status_t SGX_CDECL sgx_encrypt(void* pms)
+static sgx_status_t SGX_CDECL sgx_create_keys(void* pms)
 {
-	CHECK_REF_POINTER(pms, sizeof(ms_encrypt_t));
+	CHECK_REF_POINTER(pms, sizeof(ms_create_keys_t));
 	//
 	// fence after pointer checks
 	//
 	sgx_lfence();
-	ms_encrypt_t* ms = SGX_CAST(ms_encrypt_t*, pms);
+	ms_create_keys_t* ms = SGX_CAST(ms_create_keys_t*, pms);
 	sgx_status_t status = SGX_SUCCESS;
 	unsigned char* _tmp_p_n = ms->ms_p_n;
 	size_t _len_p_n = 256;
@@ -69,7 +77,7 @@ static sgx_status_t SGX_CDECL sgx_encrypt(void* pms)
 		memset((void*)_in_p_n, 0, _len_p_n);
 	}
 
-	encrypt(_in_p_n);
+	create_keys(_in_p_n);
 	if (_in_p_n) {
 		if (memcpy_s(_tmp_p_n, _len_p_n, _in_p_n, _len_p_n)) {
 			status = SGX_ERROR_UNEXPECTED;
@@ -82,23 +90,117 @@ err:
 	return status;
 }
 
+static sgx_status_t SGX_CDECL sgx_import_message(void* pms)
+{
+	CHECK_REF_POINTER(pms, sizeof(ms_import_message_t));
+	//
+	// fence after pointer checks
+	//
+	sgx_lfence();
+	ms_import_message_t* ms = SGX_CAST(ms_import_message_t*, pms);
+	sgx_status_t status = SGX_SUCCESS;
+	unsigned char* _tmp_message = ms->ms_message;
+	size_t _len_message = 256;
+	unsigned char* _in_message = NULL;
+
+	CHECK_UNIQUE_POINTER(_tmp_message, _len_message);
+
+	//
+	// fence after pointer checks
+	//
+	sgx_lfence();
+
+	if (_tmp_message != NULL && _len_message != 0) {
+		if ( _len_message % sizeof(*_tmp_message) != 0)
+		{
+			status = SGX_ERROR_INVALID_PARAMETER;
+			goto err;
+		}
+		_in_message = (unsigned char*)malloc(_len_message);
+		if (_in_message == NULL) {
+			status = SGX_ERROR_OUT_OF_MEMORY;
+			goto err;
+		}
+
+		if (memcpy_s(_in_message, _len_message, _tmp_message, _len_message)) {
+			status = SGX_ERROR_UNEXPECTED;
+			goto err;
+		}
+
+	}
+
+	import_message(_in_message);
+
+err:
+	if (_in_message) free(_in_message);
+	return status;
+}
+
+static sgx_status_t SGX_CDECL sgx_set_public_key(void* pms)
+{
+	CHECK_REF_POINTER(pms, sizeof(ms_set_public_key_t));
+	//
+	// fence after pointer checks
+	//
+	sgx_lfence();
+	ms_set_public_key_t* ms = SGX_CAST(ms_set_public_key_t*, pms);
+	sgx_status_t status = SGX_SUCCESS;
+	unsigned char* _tmp_module = ms->ms_module;
+	size_t _len_module = 256;
+	unsigned char* _in_module = NULL;
+
+	CHECK_UNIQUE_POINTER(_tmp_module, _len_module);
+
+	//
+	// fence after pointer checks
+	//
+	sgx_lfence();
+
+	if (_tmp_module != NULL && _len_module != 0) {
+		if ( _len_module % sizeof(*_tmp_module) != 0)
+		{
+			status = SGX_ERROR_INVALID_PARAMETER;
+			goto err;
+		}
+		_in_module = (unsigned char*)malloc(_len_module);
+		if (_in_module == NULL) {
+			status = SGX_ERROR_OUT_OF_MEMORY;
+			goto err;
+		}
+
+		if (memcpy_s(_in_module, _len_module, _tmp_module, _len_module)) {
+			status = SGX_ERROR_UNEXPECTED;
+			goto err;
+		}
+
+	}
+
+	set_public_key(_in_module);
+
+err:
+	if (_in_module) free(_in_module);
+	return status;
+}
+
 SGX_EXTERNC const struct {
 	size_t nr_ecall;
-	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[1];
+	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[3];
 } g_ecall_table = {
-	1,
+	3,
 	{
-		{(void*)(uintptr_t)sgx_encrypt, 0, 0},
+		{(void*)(uintptr_t)sgx_create_keys, 0, 0},
+		{(void*)(uintptr_t)sgx_import_message, 0, 0},
+		{(void*)(uintptr_t)sgx_set_public_key, 0, 0},
 	}
 };
 
 SGX_EXTERNC const struct {
 	size_t nr_ocall;
-	uint8_t entry_table[1][1];
+	uint8_t entry_table[1][3];
 } g_dyn_entry_table = {
 	1,
 	{
-		{0, },
+		{0, 0, 0, },
 	}
 };
 

@@ -265,8 +265,6 @@ int SGX_CDECL main(int argc, char *argv[])
         return -1; 
     }
 
-    cout <<  global_eid << endl;
-
     init_mix();
  
     // printf("%s\n", p_n);

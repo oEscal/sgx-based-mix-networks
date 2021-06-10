@@ -7,12 +7,14 @@
 using namespace std;
 
 
-string remove_at(vector<string>&v, int n)
+void create_message_str(unsigned char *message, int message_type) {
+   cout << sizeof message << endl;
+   for(int a = 0; a < 256; ++a)
 {
-    random_shuffle( v.begin(), v.end() );
-    string ans = v.back();
-	v.pop_back();
-	return ans;
+int p = *(message + a);// or int p = data[a];
+cout << p;
+}
+cout << "\n";
 }
 
 
@@ -22,7 +24,7 @@ PeerReceiver::PeerReceiver(std::string ReceiverName,std::string ReceiverPort, sg
 	this->eid = *eid;
 }
 
-void PeerReceiver::Send(string SenderName, int SenderPort, string content){
+void PeerReceiver::Send(string SenderName, int SenderPort, void *content){
 	int sockfd=0,portno=0;
 	struct hostent *server;
 
@@ -45,7 +47,7 @@ void PeerReceiver::Send(string SenderName, int SenderPort, string content){
 		cerr<< "ERROR connecting" << strerror(errno) << "\n";
 
 	
-	send(sockfd, content.c_str(), MAX_COMMAND_LEN, 0);
+	send(sockfd, content, MAX_COMMAND_LEN, 0);
 }
 
 float PeerReceiver::GenerateRandomValue() {
@@ -65,14 +67,14 @@ void PeerReceiver::SendMessage() {
 
 			if(GenerateRandomValue() < blank_probability) {
 				cout << "FALSE" << endl;
-				Send("localhost", 4321, "FALSE");
+				// Send("localhost", 4321, "FALSE");
 				continue;
 			}
 		}
 		if(GenerateRandomValue() < this->fan_out_probability) { // Should fan-out
 			// send Message
 		}
-		Send("localhost", 4321, remove_at(this->buffer, N));
+		// Send("localhost", 4321, remove_at(this->buffer, N));
 		cout <<  "TRUE" << endl;
 	}
 }
@@ -96,11 +98,15 @@ void PeerReceiver::Start(){
 	clilen = sizeof(cli_addr);
 
    // create private and public key and obtain the correspondent public module
-   unsigned char public_module[256];
-   cout <<  this->eid << endl;
-   encrypt(this->eid, public_module);
+   create_keys(this->eid, this->my_public_module);
 
-	thread SendMessageJob(&PeerReceiver::SendMessage, this);
+   set_public_key(this->eid, this->my_public_module);
+
+   // send the public module to the next mix
+   Send("localhost", 4321, this->my_public_module);
+   create_message_str(this->my_public_module, 0);
+
+	// thread SendMessageJob(&PeerReceiver::SendMessage, this);
 
 	while(true){
 		newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen); // Waiting connections
@@ -108,14 +114,16 @@ void PeerReceiver::Start(){
 		if (newsockfd < 0)
 			std::cerr << "ERROR on accept" << strerror(errno)<<"\n";
 
-		char cmd[MAX_COMMAND_LEN];
+		unsigned char cmd[MAX_COMMAND_LEN];
 		recv(newsockfd, cmd, MAX_COMMAND_LEN, 0);
 
-		this->buffer.push_back(cmd);
-		cout << cmd << endl;
+		// cout << cmd << endl;
+      create_message_str(cmd, 0);
+      cout << "Received!" << endl;
+      import_message(this->eid, cmd);
 		
 		close(newsockfd);
 	}
-	SendMessageJob.join();
+	// SendMessageJob.join();
 	close(sockfd);
 }

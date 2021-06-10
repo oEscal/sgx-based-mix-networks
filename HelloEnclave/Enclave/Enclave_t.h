@@ -15,7 +15,9 @@
 extern "C" {
 #endif
 
-void encrypt(unsigned char* p_n);
+void create_keys(unsigned char* p_n);
+void import_message(unsigned char* message);
+void set_public_key(unsigned char* module);
 
 sgx_status_t SGX_CDECL ocall_print_string(const char* str);
 
