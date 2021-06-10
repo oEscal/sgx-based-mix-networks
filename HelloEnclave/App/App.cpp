@@ -236,17 +236,17 @@ void ocall_print_string(const char *str)
 }
 
 //The PeerReceiver Thread act like a server
-void StartThePeerReceiver(string PeerReceiverName, string PeerReceiverPort,  sgx_enclave_id_t *eid){
+void StartThePeerReceiver(string PeerReceiverName, string PeerReceiverPort, string next_port,  sgx_enclave_id_t *eid){
 
-	std::unique_ptr<PeerReceiver> rec(new PeerReceiver(PeerReceiverName, PeerReceiverPort, eid));
+	std::unique_ptr<PeerReceiver> rec(new PeerReceiver(PeerReceiverName, next_port, PeerReceiverPort, eid));
 	rec->Start();
 }
 
-void init_mix(){
+void init_mix(string port, string next_port){
 	string PeerReceiverName ="localhost";
-	string PeerReceiverPort ="1234";
+	string PeerReceiverPort = port;
 
-	thread PeerReceiver(StartThePeerReceiver, PeerReceiverName, PeerReceiverPort, &global_eid);
+	thread PeerReceiver(StartThePeerReceiver, PeerReceiverName, PeerReceiverPort, next_port, &global_eid);
 	PeerReceiver.join();
 }
 
@@ -258,6 +258,14 @@ int SGX_CDECL main(int argc, char *argv[])
     (void)(argv);
 
 
+    if (argc < 3)
+        exit(1);
+
+    
+    string port = argv[1];
+    string next_port = argv[2];
+
+
     /* Initialize the enclave */
     if(initialize_enclave() < 0){
         printf("Enter a character before exit ...\n");
@@ -265,7 +273,7 @@ int SGX_CDECL main(int argc, char *argv[])
         return -1; 
     }
 
-    init_mix();
+    init_mix(port, next_port);
  
     // printf("%s\n", p_n);
 

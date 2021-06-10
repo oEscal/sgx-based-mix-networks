@@ -105,21 +105,13 @@ void set_public_key(unsigned char *module) {
 }
 
 void import_message(unsigned char *message) {
-   for(int a = 0; a < 256; ++a)
-    {
-    int p = *(message + a);// or int p = data[a];
-    printf("%d", p);
-    }
-    printf("\n");
-
     size_t decrypted_out_len = 0;
 
     sgx_status_t ret_determine_decrypt_len = sgx_rsa_priv_decrypt_sha256(
         private_key, NULL, &decrypted_out_len, message, 256);
-    printf("%d\n", decrypted_out_len);
 
     if ( ret_determine_decrypt_len != SGX_SUCCESS) {
-        printf("Determination of decrypted output length failed");
+        printf("Determination of decrypted output length failed\n");
     }
 
     unsigned char decrypted_pout_data[decrypted_out_len];
@@ -127,19 +119,35 @@ void import_message(unsigned char *message) {
     sgx_status_t ret_decrypt = sgx_rsa_priv_decrypt_sha256(
         private_key, decrypted_pout_data, &decrypted_out_len, message, 256);
 
-    printf("%d\n", (int)ret_decrypt);
-    printf("Decrypted MESSAGE:");
-    printf("%s\n", (char *)decrypted_pout_data);
     if (ret_decrypt != SGX_SUCCESS) {
-        printf("Decryption failed");
+        printf("Decryption failed\n");
     } else {
-        printf("Decrypted MESSAGE:");
-        printf("%s\n", (char *)decrypted_pout_data);
+        printf("Decrypted message with success!\n");
     }
-}
 
-void cipher_message(unsigned char *result) {
+    size_t out_len = 0;
 
+    sgx_status_t ret_get_output_len = sgx_rsa_pub_encrypt_sha256(
+        previous_public_key, NULL, &out_len, decrypted_pout_data, strlen((char *) decrypted_pout_data));
+
+    if ( ret_get_output_len != SGX_SUCCESS) {
+        printf("Determination of output length failed\n");
+    }
+
+    unsigned char pout_data[out_len];
+
+    sgx_status_t ret_encrypt = sgx_rsa_pub_encrypt_sha256(
+        previous_public_key, pout_data, &out_len, decrypted_pout_data, strlen((char *) decrypted_pout_data));
+
+    if ( ret_encrypt != SGX_SUCCESS) {
+        printf("Encryption failed\n");
+    } else {
+        printf("Encrypted message with success!\n");
+    }
+
+    printf("%s\n", (char *)pout_data);
+
+    buffer.push_back(pout_data);
 }
 
 

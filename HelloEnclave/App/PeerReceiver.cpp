@@ -7,24 +7,25 @@
 using namespace std;
 
 
-void create_message_str(unsigned char *message, int message_type) {
-   cout << sizeof message << endl;
-   for(int a = 0; a < 256; ++a)
-{
-int p = *(message + a);// or int p = data[a];
-cout << p;
+void wrap_message(unsigned char *message_to_send, unsigned char *content, char message_type) {
+   message_to_send[0] = message_type;
+   std::copy(content, content + 256, message_to_send + 1);
 }
-cout << "\n";
+
+char unwrap_message(unsigned char *content, unsigned char *message_received) {
+   std::copy(message_received + 1, message_received + MAX_COMMAND_LEN, content);
+   return message_received[0];
 }
 
 
-PeerReceiver::PeerReceiver(std::string ReceiverName,std::string ReceiverPort, sgx_enclave_id_t *eid){
+PeerReceiver::PeerReceiver(std::string ReceiverName, std::string ReceiverPort, std::string next_port, sgx_enclave_id_t *eid){
 	this->ReceiverName = ReceiverName;
 	this->ReceiverPort = ReceiverPort;
+   this->next_port = std::stoi(next_port);
 	this->eid = *eid;
 }
 
-void PeerReceiver::Send(string SenderName, int SenderPort, void *content){
+void PeerReceiver::Send(string SenderName, void *content){
 	int sockfd=0,portno=0;
 	struct hostent *server;
 
@@ -41,7 +42,7 @@ void PeerReceiver::Send(string SenderName, int SenderPort, void *content){
 	bzero((char *) &serv_addr, sizeof(serv_addr)); // Erase data
 	serv_addr.sin_family = AF_INET;
 	bcopy((char *) server->h_addr,(char *)&serv_addr.sin_addr.s_addr, server->h_length);
-	serv_addr.sin_port = htons(SenderPort);
+	serv_addr.sin_port = htons(this->next_port);
 
 	if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
 		cerr<< "ERROR connecting" << strerror(errno) << "\n";
@@ -79,6 +80,31 @@ void PeerReceiver::SendMessage() {
 	}
 }
 
+void PeerReceiver::receive_messages() {
+	while(true){
+		newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen); // Waiting connections
+		
+		if (newsockfd < 0)
+			std::cerr << "ERROR on accept" << strerror(errno)<<"\n";
+
+		unsigned char cmd[MAX_COMMAND_LEN];
+		recv(newsockfd, cmd, MAX_COMMAND_LEN, 0);
+
+      cout << "Received!" << endl;
+
+      // message with the public key
+      unsigned char message[256];
+      if (unwrap_message(message, cmd) == '0') {
+         cout << "Saving the previous public key!" << endl;
+         set_public_key(this->eid, message);
+      }
+      
+      // import_message(this->eid, cmd);
+		
+		close(newsockfd);
+	}
+}
+
 void PeerReceiver::Start(){
 	
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -92,38 +118,26 @@ void PeerReceiver::Start(){
 	serv_addr.sin_addr.s_addr = INADDR_ANY;
 	serv_addr.sin_port = htons(portno);
 
+   int opt=1;
+   setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+
 	if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
 		std::cerr << "ERROR on binding" << std::endl;
 	listen(sockfd, 10);
 	clilen = sizeof(cli_addr);
 
+   thread ReceiveMessagesJob(&PeerReceiver::receive_messages, this);
+   sleep(5);
+
    // create private and public key and obtain the correspondent public module
    create_keys(this->eid, this->my_public_module);
 
-   set_public_key(this->eid, this->my_public_module);
+   unsigned char message_to_send[256 + 1];
+   wrap_message(message_to_send, this->my_public_module, '0');
 
    // send the public module to the next mix
-   Send("localhost", 4321, this->my_public_module);
-   create_message_str(this->my_public_module, 0);
+   Send("localhost", message_to_send);
 
-	// thread SendMessageJob(&PeerReceiver::SendMessage, this);
-
-	while(true){
-		newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen); // Waiting connections
-		
-		if (newsockfd < 0)
-			std::cerr << "ERROR on accept" << strerror(errno)<<"\n";
-
-		unsigned char cmd[MAX_COMMAND_LEN];
-		recv(newsockfd, cmd, MAX_COMMAND_LEN, 0);
-
-		// cout << cmd << endl;
-      create_message_str(cmd, 0);
-      cout << "Received!" << endl;
-      import_message(this->eid, cmd);
-		
-		close(newsockfd);
-	}
-	// SendMessageJob.join();
+	ReceiveMessagesJob.join();
 	close(sockfd);
 }
