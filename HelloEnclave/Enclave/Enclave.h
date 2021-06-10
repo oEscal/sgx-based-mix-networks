@@ -43,6 +43,7 @@ extern "C" {
 void encrypt(unsigned char *p_n);
 void import_message(unsigned char *message);
 void set_public_key(unsigned char *module);
+void dispatch(unsigned char *result);
 void printf(const char *fmt, ...);
 
 #if defined(__cplusplus)

@@ -51,6 +51,10 @@ enclave {
         public void set_public_key(
             [in, size=256]unsigned char *module
         );
+
+        public void dispatch(
+            [out, size=256]unsigned char *result
+        );
     };
 
     /* 

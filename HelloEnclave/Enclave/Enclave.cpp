@@ -34,10 +34,12 @@
 #include <stdio.h>      /* vsnprintf */
 #include <cstring>
 #include <vector>
+#include <climits>
 
 #include "Enclave.h"
 #include "Enclave_t.h"  /* print_string */
 
+#include "sgx_trts.h"
 #include "sgx_tcrypto.h"
 
 
@@ -112,6 +114,7 @@ void import_message(unsigned char *message) {
 
     if ( ret_determine_decrypt_len != SGX_SUCCESS) {
         printf("Determination of decrypted output length failed\n");
+        return;
     }
 
     unsigned char decrypted_pout_data[decrypted_out_len];
@@ -121,33 +124,55 @@ void import_message(unsigned char *message) {
 
     if (ret_decrypt != SGX_SUCCESS) {
         printf("Decryption failed\n");
+        return;
     } else {
-        printf("Decrypted message with success!\n");
+        printf("Decrypted message with success!\n"); 
+    }
+
+    buffer.push_back(decrypted_pout_data);
+
+    printf("Current buffer size: %d\n", buffer.size());
+}
+
+float generate_random_value() {
+    unsigned int random_value;
+    sgx_read_rand((unsigned char *) &random_value, sizeof(unsigned int));
+    return (float)random_value / (float)UINT_MAX;
+}
+
+const int WATER_MARK = 100;
+
+void dispatch(unsigned char *result) {
+
+    unsigned char *message;
+    float probability_false = (float)(WATER_MARK - buffer.size()) / (float)WATER_MARK;
+    
+    // create a false message
+    if (probability_false > 0 && generate_random_value() < probability_false) {
+        message = (unsigned char *) "False";
+    } else {
+        int index = (int)(generate_random_value()*buffer.size());
+        message = buffer.at(index);
+        buffer.erase(buffer.begin() + index);
     }
 
     size_t out_len = 0;
 
     sgx_status_t ret_get_output_len = sgx_rsa_pub_encrypt_sha256(
-        previous_public_key, NULL, &out_len, decrypted_pout_data, strlen((char *) decrypted_pout_data));
+        previous_public_key, NULL, &out_len, message, strlen((char *) message));
 
     if ( ret_get_output_len != SGX_SUCCESS) {
         printf("Determination of output length failed\n");
     }
 
-    unsigned char pout_data[out_len];
-
     sgx_status_t ret_encrypt = sgx_rsa_pub_encrypt_sha256(
-        previous_public_key, pout_data, &out_len, decrypted_pout_data, strlen((char *) decrypted_pout_data));
+        previous_public_key, result, &out_len, message, strlen((char *) message));
 
     if ( ret_encrypt != SGX_SUCCESS) {
         printf("Encryption failed\n");
     } else {
         printf("Encrypted message with success!\n");
     }
-
-    buffer.push_back(pout_data);
-
-    printf("%d\n", buffer.size());
 }
 
 

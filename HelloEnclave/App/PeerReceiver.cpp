@@ -61,23 +61,19 @@ float PeerReceiver::GenerateRandomValue() {
 void PeerReceiver::SendMessage() {
 	while (true) {
 		sleep(this->sending_rate);
-		double H = this->watermark;
-		double N = this->buffer.size();
 
-		if (H > N){
-			float blank_probability = (H - N) / H;
+		unsigned char content[256];
+		dispatch(this->eid, content);
 
-			if(GenerateRandomValue() < blank_probability) {
-				cout << "FALSE" << endl;
-				// Send("localhost", 4321, "FALSE");
-				continue;
-			}
-		}
-		if(GenerateRandomValue() < this->fan_out_probability) { // Should fan-out
-			// send Message
-		}
-		// Send("localhost", 4321, remove_at(this->buffer, N));
-		cout <<  "TRUE" << endl;
+		// printf("\n\n\n%s\n\n\n\n", (char *)content);
+		// exit(1);
+		
+		unsigned char message_to_send[256 + 1];
+
+   	wrap_message(message_to_send, content, '1');
+
+   	// send the next message
+   	Send("localhost", this->next_port, message_to_send, 257);
 	}
 }
 
@@ -91,7 +87,7 @@ void PeerReceiver::receive_messages() {
 		unsigned char cmd[MAX_COMMAND_LEN];
 		recv(newsockfd, cmd, MAX_COMMAND_LEN, 0);
 
-      cout << "Received!" << endl;
+      cout << "\n\n\n\n\nReceived!" << endl;
 
       // message with the public key
       unsigned char message[256];
@@ -130,6 +126,7 @@ void PeerReceiver::Start(){
 	listen(sockfd, 10);
 	clilen = sizeof(cli_addr);
 
+	// thread to receive messages
    thread ReceiveMessagesJob(&PeerReceiver::receive_messages, this);
    sleep(5);
 
@@ -148,6 +145,10 @@ void PeerReceiver::Start(){
    std::copy(message_to_send, message_to_send + 257, message_to_send_producer + this->ReceiverPort.length());
    Send("localhost", this->producer_port, message_to_send_producer, 261);
 
+	// thread to send messages
+	thread SendMessagesJob(&PeerReceiver::SendMessage, this);
+	
 	ReceiveMessagesJob.join();
+	SendMessagesJob.join();
 	close(sockfd);
 }

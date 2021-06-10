@@ -60,7 +60,7 @@ class Sender(threading.Thread):
 		while True:
 			if len(self.public_keys) < self.min_number_mixes:
 				print("Waiting...")
-				time.sleep(1)
+				time.sleep(0.1)
 				continue
 
 			msg = f"TEST_{num}".encode()
@@ -70,7 +70,8 @@ class Sender(threading.Thread):
 
 			self.send(msg_send, port_send)
 
-			time.sleep(5)
+			num += 1
+			time.sleep(1)
 
 	def cipher_message(self, msg: bytes, receiver_port: int) -> bytes:
 		return b'1' + self.public_keys[receiver_port].encrypt(msg)

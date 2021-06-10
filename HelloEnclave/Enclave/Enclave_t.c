@@ -39,6 +39,10 @@ typedef struct ms_set_public_key_t {
 	unsigned char* ms_module;
 } ms_set_public_key_t;
 
+typedef struct ms_dispatch_t {
+	unsigned char* ms_result;
+} ms_dispatch_t;
+
 typedef struct ms_ocall_print_string_t {
 	const char* ms_str;
 } ms_ocall_print_string_t;
@@ -182,25 +186,73 @@ err:
 	return status;
 }
 
+static sgx_status_t SGX_CDECL sgx_dispatch(void* pms)
+{
+	CHECK_REF_POINTER(pms, sizeof(ms_dispatch_t));
+	//
+	// fence after pointer checks
+	//
+	sgx_lfence();
+	ms_dispatch_t* ms = SGX_CAST(ms_dispatch_t*, pms);
+	sgx_status_t status = SGX_SUCCESS;
+	unsigned char* _tmp_result = ms->ms_result;
+	size_t _len_result = 256;
+	unsigned char* _in_result = NULL;
+
+	CHECK_UNIQUE_POINTER(_tmp_result, _len_result);
+
+	//
+	// fence after pointer checks
+	//
+	sgx_lfence();
+
+	if (_tmp_result != NULL && _len_result != 0) {
+		if ( _len_result % sizeof(*_tmp_result) != 0)
+		{
+			status = SGX_ERROR_INVALID_PARAMETER;
+			goto err;
+		}
+		if ((_in_result = (unsigned char*)malloc(_len_result)) == NULL) {
+			status = SGX_ERROR_OUT_OF_MEMORY;
+			goto err;
+		}
+
+		memset((void*)_in_result, 0, _len_result);
+	}
+
+	dispatch(_in_result);
+	if (_in_result) {
+		if (memcpy_s(_tmp_result, _len_result, _in_result, _len_result)) {
+			status = SGX_ERROR_UNEXPECTED;
+			goto err;
+		}
+	}
+
+err:
+	if (_in_result) free(_in_result);
+	return status;
+}
+
 SGX_EXTERNC const struct {
 	size_t nr_ecall;
-	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[3];
+	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[4];
 } g_ecall_table = {
-	3,
+	4,
 	{
 		{(void*)(uintptr_t)sgx_create_keys, 0, 0},
 		{(void*)(uintptr_t)sgx_import_message, 0, 0},
 		{(void*)(uintptr_t)sgx_set_public_key, 0, 0},
+		{(void*)(uintptr_t)sgx_dispatch, 0, 0},
 	}
 };
 
 SGX_EXTERNC const struct {
 	size_t nr_ocall;
-	uint8_t entry_table[1][3];
+	uint8_t entry_table[1][4];
 } g_dyn_entry_table = {
 	1,
 	{
-		{0, 0, 0, },
+		{0, 0, 0, 0, },
 	}
 };
 

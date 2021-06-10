@@ -13,6 +13,10 @@ typedef struct ms_set_public_key_t {
 	unsigned char* ms_module;
 } ms_set_public_key_t;
 
+typedef struct ms_dispatch_t {
+	unsigned char* ms_result;
+} ms_dispatch_t;
+
 typedef struct ms_ocall_print_string_t {
 	const char* ms_str;
 } ms_ocall_print_string_t;
@@ -58,6 +62,15 @@ sgx_status_t set_public_key(sgx_enclave_id_t eid, unsigned char* module)
 	ms_set_public_key_t ms;
 	ms.ms_module = module;
 	status = sgx_ecall(eid, 2, &ocall_table_Enclave, &ms);
+	return status;
+}
+
+sgx_status_t dispatch(sgx_enclave_id_t eid, unsigned char* result)
+{
+	sgx_status_t status;
+	ms_dispatch_t ms;
+	ms.ms_result = result;
+	status = sgx_ecall(eid, 3, &ocall_table_Enclave, &ms);
 	return status;
 }
 
