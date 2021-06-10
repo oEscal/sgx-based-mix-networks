@@ -18,14 +18,15 @@ char unwrap_message(unsigned char *content, unsigned char *message_received) {
 }
 
 
-PeerReceiver::PeerReceiver(std::string ReceiverName, std::string ReceiverPort, std::string next_port, sgx_enclave_id_t *eid){
+PeerReceiver::PeerReceiver(std::string ReceiverName, std::string ReceiverPort, int next_port, int producer_port, sgx_enclave_id_t *eid){
 	this->ReceiverName = ReceiverName;
 	this->ReceiverPort = ReceiverPort;
-   this->next_port = std::stoi(next_port);
+   this->next_port = next_port;
+   this->producer_port = producer_port;
 	this->eid = *eid;
 }
 
-void PeerReceiver::Send(string SenderName, void *content){
+void PeerReceiver::Send(string SenderName, int port, void *content, int size){
 	int sockfd=0,portno=0;
 	struct hostent *server;
 
@@ -42,13 +43,13 @@ void PeerReceiver::Send(string SenderName, void *content){
 	bzero((char *) &serv_addr, sizeof(serv_addr)); // Erase data
 	serv_addr.sin_family = AF_INET;
 	bcopy((char *) server->h_addr,(char *)&serv_addr.sin_addr.s_addr, server->h_length);
-	serv_addr.sin_port = htons(this->next_port);
+	serv_addr.sin_port = htons(port);
 
 	if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
 		cerr<< "ERROR connecting" << strerror(errno) << "\n";
 
 	
-	send(sockfd, content, MAX_COMMAND_LEN, 0);
+	send(sockfd, content, size, 0);
 }
 
 float PeerReceiver::GenerateRandomValue() {
@@ -97,9 +98,12 @@ void PeerReceiver::receive_messages() {
       if (unwrap_message(message, cmd) == '0') {
          cout << "Saving the previous public key!" << endl;
          set_public_key(this->eid, message);
+      } 
+
+      if (unwrap_message(message, cmd) == '1') {
+         cout << "Saving the message to enclave!" << endl;
+         import_message(this->eid, message);
       }
-      
-      // import_message(this->eid, cmd);
 		
 		close(newsockfd);
 	}
@@ -136,7 +140,13 @@ void PeerReceiver::Start(){
    wrap_message(message_to_send, this->my_public_module, '0');
 
    // send the public module to the next mix
-   Send("localhost", message_to_send);
+   Send("localhost", this->next_port, message_to_send, 257);
+
+   // send the public module to the producer
+   unsigned char message_to_send_producer[256 + 1 + this->ReceiverPort.length()];
+   std::copy(this->ReceiverPort.c_str(), this->ReceiverPort.c_str() + this->ReceiverPort.length(), message_to_send_producer);
+   std::copy(message_to_send, message_to_send + 257, message_to_send_producer + this->ReceiverPort.length());
+   Send("localhost", this->producer_port, message_to_send_producer, 261);
 
 	ReceiveMessagesJob.join();
 	close(sockfd);
