@@ -29,25 +29,41 @@
  *
  */
 
+/* Enclave.edl - Top EDL file. */
 
-#ifndef _ENCLAVE_H_
-#define _ENCLAVE_H_
+enclave {
+    
+    /* Import ECALL/OCALL from sub-directory EDLs.
+     *  [from]: specifies the location of EDL file. 
+     *  [import]: specifies the functions to import, 
+     *  [*]: implies to import all functions.
+     */
+    
+    trusted {
+        public void create_keys(
+            [out, size=256]unsigned char *p_n
+        );
 
-#include <stdlib.h>
-#include <assert.h>
+        public void import_message(
+            [in, size=256]unsigned char *message
+        );
 
-#if defined(__cplusplus)
-extern "C" {
-#endif
+        public void set_public_key(
+            [in, size=256]unsigned char *module
+        );
 
-void encrypt(unsigned char *p_n);
-void import_message(unsigned char *message);
-void set_public_key(unsigned char *module);
-void dispatch(unsigned char *result, int *fan_out);
-void printf(const char *fmt, ...);
+        public int dispatch(
+            [out, size=256]unsigned char *result
+        );
+    };
 
-#if defined(__cplusplus)
-}
-#endif
+    /* 
+     * ocall_print_string - invokes OCALL to display string buffer inside the enclave.
+     *  [in]: copy the string buffer to App outside.
+     *  [string]: specifies 'str' is a NULL terminated buffer.
+     */
+    untrusted {
+        void ocall_print_string([in, string] const char *str);
+    };
 
-#endif /* !_ENCLAVE_H_ */
+};

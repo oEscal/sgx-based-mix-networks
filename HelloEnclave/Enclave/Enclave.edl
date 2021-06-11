@@ -53,7 +53,8 @@ enclave {
         );
 
         public void dispatch(
-            [out, size=256]unsigned char *result
+            [out, size=256]unsigned char *result,
+            [out, size=4]int *fan_out
         );
     };
 

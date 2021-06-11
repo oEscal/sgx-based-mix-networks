@@ -40,8 +40,8 @@ typedef struct ms_set_public_key_t {
 } ms_set_public_key_t;
 
 typedef struct ms_dispatch_t {
+	int ms_retval;
 	unsigned char* ms_result;
-	int* ms_fan_out;
 } ms_dispatch_t;
 
 typedef struct ms_ocall_print_string_t {
@@ -199,12 +199,8 @@ static sgx_status_t SGX_CDECL sgx_dispatch(void* pms)
 	unsigned char* _tmp_result = ms->ms_result;
 	size_t _len_result = 256;
 	unsigned char* _in_result = NULL;
-	int* _tmp_fan_out = ms->ms_fan_out;
-	size_t _len_fan_out = 4;
-	int* _in_fan_out = NULL;
 
 	CHECK_UNIQUE_POINTER(_tmp_result, _len_result);
-	CHECK_UNIQUE_POINTER(_tmp_fan_out, _len_fan_out);
 
 	//
 	// fence after pointer checks
@@ -224,29 +220,10 @@ static sgx_status_t SGX_CDECL sgx_dispatch(void* pms)
 
 		memset((void*)_in_result, 0, _len_result);
 	}
-	if (_tmp_fan_out != NULL && _len_fan_out != 0) {
-		if ( _len_fan_out % sizeof(*_tmp_fan_out) != 0)
-		{
-			status = SGX_ERROR_INVALID_PARAMETER;
-			goto err;
-		}
-		if ((_in_fan_out = (int*)malloc(_len_fan_out)) == NULL) {
-			status = SGX_ERROR_OUT_OF_MEMORY;
-			goto err;
-		}
 
-		memset((void*)_in_fan_out, 0, _len_fan_out);
-	}
-
-	dispatch(_in_result, _in_fan_out);
+	ms->ms_retval = dispatch(_in_result);
 	if (_in_result) {
 		if (memcpy_s(_tmp_result, _len_result, _in_result, _len_result)) {
-			status = SGX_ERROR_UNEXPECTED;
-			goto err;
-		}
-	}
-	if (_in_fan_out) {
-		if (memcpy_s(_tmp_fan_out, _len_fan_out, _in_fan_out, _len_fan_out)) {
 			status = SGX_ERROR_UNEXPECTED;
 			goto err;
 		}
@@ -254,7 +231,6 @@ static sgx_status_t SGX_CDECL sgx_dispatch(void* pms)
 
 err:
 	if (_in_result) free(_in_result);
-	if (_in_fan_out) free(_in_fan_out);
 	return status;
 }
 

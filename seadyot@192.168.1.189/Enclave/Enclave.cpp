@@ -34,8 +34,6 @@
 #include <stdio.h>      /* vsnprintf */
 #include <cstring>
 #include <vector>
-#include <string.h>
-#include <string>
 #include <climits>
 
 #include "Enclave.h"
@@ -48,9 +46,7 @@
 long e = 65537;
 void *private_key = NULL;
 void *previous_public_key = NULL;
-std::vector<std::string> buffer;
-
-const char *MESSAGE_FALSE = "False";
+std::vector<unsigned char *> buffer;
 
 
 /* 
@@ -133,27 +129,10 @@ void import_message(unsigned char *message) {
         printf("Decrypted message with success!\n"); 
     }
 
-    char content_compare[strlen(MESSAGE_FALSE) + 1];
-    std::copy(decrypted_pout_data, decrypted_pout_data + strlen(MESSAGE_FALSE), content_compare);
-    content_compare[strlen(MESSAGE_FALSE)] = '\0';
-    
-for (int i = 0; i < strlen(MESSAGE_FALSE) + 1; i++) {
-    	printf("%d ", (int)content_compare[i]);
-    }
-    printf("\n%s\n", content_compare);
-
-    if (strcmp(content_compare, MESSAGE_FALSE) != 0) {
-        buffer.push_back(std::string((char *) decrypted_pout_data, 256));
-    } 
+    buffer.push_back(decrypted_pout_data);
 
     printf("Current buffer size: %d\n", buffer.size());
 }
-
-/*
-for (int i = 0; i < strlen(MESSAGE_FALSE) + 1; i++) {
-    	printf("%d ", (int)content_compare[i]);
-    }
-    */
 
 float generate_random_value() {
     unsigned int random_value;
@@ -164,32 +143,27 @@ float generate_random_value() {
 const int WATER_MARK = 100;
 const float PROBABILITY_FAN_OUT = 0.7;
 
-void dispatch(unsigned char *result, int *fan_out) {
+int dispatch(unsigned char *result) {
+    int fan_out = 0;
 
     unsigned char *message;
     float probability_false = (float)(WATER_MARK - buffer.size()) / (float)WATER_MARK;
-    *fan_out = 0;
+
+    if (generate_random_value() < PROBABILITY_FAN_OUT)
+        fan_out = 1;
+    // printf("ola %d\n", fan_out);
     
-    
-    if (probability_false > 0 && generate_random_value() < probability_false) {          // create a false message
-        message = (unsigned char *)"False";
-    } else {
-        char message_cp[256];
-        message = (unsigned char *) message_cp;
-                                                                                              // obtain a message from the buffer
+    if (probability_false > 0 && generate_random_value() < probability_false && !fan_out) {          // create a false message
+        message = (unsigned char *) "False";
+    } else {                                                                                            // obtain a message from the buffer
         int index = (int)(generate_random_value()*buffer.size());
-        std::string msg_str = buffer.at(index);
-
-        for (int i = 0; i < 256; i++)
-            message_cp[i] = msg_str.at(i);
-
+        message = buffer.at(index);
         buffer.erase(buffer.begin() + index);
+    }
 
-        if (generate_random_value() < PROBABILITY_FAN_OUT) {
-            *fan_out = 1;
-            std::copy(message, message + strlen((char *) message), result);
-            return;
-        }
+    if (fan_out) {
+        std::copy(message, message + strlen((char *) message), result);
+        return fan_out;
     }
 
     size_t out_len = 0;
@@ -209,6 +183,8 @@ void dispatch(unsigned char *result, int *fan_out) {
     } else {
         printf("Encrypted message with success!\n");
     }
+
+    return 0;
 }
 
 

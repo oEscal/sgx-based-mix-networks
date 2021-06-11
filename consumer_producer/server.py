@@ -5,8 +5,9 @@ from workers import Sender, Receiver
 
 def main():
 	public_keys = dict()
+	received_messages = []
 
-	receiver_thread = Receiver(port=5555, number_mixes=2, public_keys=public_keys)
+	receiver_thread = Receiver(port=5555, number_mixes=2, public_keys=public_keys, received_messages=received_messages)
 	receiver_thread.start()
 
 	sender_thread = Sender(min_number_mixes=2, public_keys=public_keys)

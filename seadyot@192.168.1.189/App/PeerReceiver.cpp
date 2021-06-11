@@ -63,11 +63,12 @@ void PeerReceiver::SendMessage() {
 		sleep(this->sending_rate);
 
 		unsigned char content[256];
-		int fan_out = 0;
-		dispatch(this->eid, content, &fan_out);
+		int fan_out;
+		dispatch(this->eid, &fan_out, content);
 
 		unsigned char message_to_send[256 + 1];
 
+		printf("adeus %d\n", fan_out);
 		if (fan_out) {
 			wrap_message(message_to_send, content, '2');
 

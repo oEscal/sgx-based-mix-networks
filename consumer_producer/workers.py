@@ -12,11 +12,12 @@ MESSAGE_RECV_SIZE = 261
 
 
 class Receiver(threading.Thread):
-	def __init__(self, port: int, number_mixes: int, public_keys: dict):
+	def __init__(self, port: int, number_mixes: int, public_keys: dict, received_messages: list):
 		threading.Thread.__init__(self)
 		self.port = port
 		self.number_mixes = number_mixes
 		self.public_keys = public_keys
+		self.received_messages = received_messages
 
 	def run(self):
 		try:
@@ -37,6 +38,9 @@ class Receiver(threading.Thread):
 
 				if message_type == '0':
 					self.save_new_public_key(message_from_port, message)
+				elif message_type == '2':
+					self.received_messages.append(message)
+					print(self.received_messages)
 		except Exception as e:
 			print(f"Error running the Receiver worker: <{e}>")
 			return
