@@ -136,24 +136,36 @@ void import_message(unsigned char *message) {
     char content_compare[strlen(MESSAGE_FALSE) + 1];
     std::copy(decrypted_pout_data, decrypted_pout_data + strlen(MESSAGE_FALSE), content_compare);
     content_compare[strlen(MESSAGE_FALSE)] = '\0';
-    
-for (int i = 0; i < strlen(MESSAGE_FALSE) + 1; i++) {
-    	printf("%d ", (int)content_compare[i]);
-    }
-    printf("\n%s\n", content_compare);
 
     if (strcmp(content_compare, MESSAGE_FALSE) != 0) {
-        buffer.push_back(std::string((char *) decrypted_pout_data, 256));
+        std::string decrypted_str = std::string((char *) decrypted_pout_data);
+        
+        // printf("OLAOLAOLA: %s\n", decrypted_pout_data);
+        int current_op_index = decrypted_str.find(':') + 1;
+        char current_op_str[decrypted_str.length() - current_op_index + 1];
+
+        decrypted_str.copy(current_op_str, decrypted_str.length() - current_op_index, current_op_index);
+        current_op_str[decrypted_str.length() - current_op_index] = '\0';
+
+        char message_without_op[current_op_index + 1];
+        decrypted_str.copy(message_without_op, current_op_index);
+        message_without_op[current_op_index] = '\0';
+
+        // printf("OLAOLAOLA: %d\n", strlen(message_without_op));
+        // printf("OLAOLAOLA: %d\n", strlen(current_op_str));
+        int current_op = std::stoi(current_op_str) + 1;
+        // printf("%d\n", current_op);
+        buffer.push_back(std::string(message_without_op) + std::to_string(current_op));
+        // printf("OLAOLAOLA: %s\n", buffer.at(buffer.size() - 1).c_str());
     } 
 
     printf("Current buffer size: %d\n", buffer.size());
 }
 
-/*
-for (int i = 0; i < strlen(MESSAGE_FALSE) + 1; i++) {
-    	printf("%d ", (int)content_compare[i]);
-    }
-    */
+// for (int i = 0; i < strlen(MESSAGE_FALSE) + 1; i++) {
+    // 	printf("%d ", (int)content_compare[i]);
+    // }
+    // printf("\n%s\n", content_compare);
 
 float generate_random_value() {
     unsigned int random_value;
@@ -161,27 +173,29 @@ float generate_random_value() {
     return (float)random_value / (float)UINT_MAX;
 }
 
-const int WATER_MARK = 100;
-const float PROBABILITY_FAN_OUT = 0.7;
+const int WATER_MARK = 15;
+const float PROBABILITY_FAN_OUT = 0.01;
 
 void dispatch(unsigned char *result, int *fan_out) {
 
     unsigned char *message;
-    float probability_false = (float)(WATER_MARK - buffer.size()) / (float)WATER_MARK;
+    float probability_false = (WATER_MARK - (float)buffer.size()) / (float)WATER_MARK;
+    printf("BEFORE: %f\n", probability_false);
     *fan_out = 0;
-    
     
     if (probability_false > 0 && generate_random_value() < probability_false) {          // create a false message
         message = (unsigned char *)"False";
     } else {
-        char message_cp[256];
-        message = (unsigned char *) message_cp;
-                                                                                              // obtain a message from the buffer
         int index = (int)(generate_random_value()*buffer.size());
-        std::string msg_str = buffer.at(index);
-
-        for (int i = 0; i < 256; i++)
-            message_cp[i] = msg_str.at(i);
+        message = (unsigned char *) buffer.at(index).c_str();
+        printf("BEFORE: %s\n", (char *) message);
+                                                                                              // obtain a message from the buffer
+        // 
+        // std::string msg_str = buffer.at(index);
+        // 
+// 
+        // for (int i = 0; i < 256; i++)
+        //     message_cp[i] = msg_str.at(i);
 
         buffer.erase(buffer.begin() + index);
 

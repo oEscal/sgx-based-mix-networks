@@ -67,7 +67,7 @@ class Sender(threading.Thread):
 				time.sleep(0.1)
 				continue
 
-			msg = f"TEST_{num}".encode()
+			msg = f"TEST_{num}:0".encode() + b'\x00'
 
 			port_send = random.choice(list(self.public_keys.keys()))
 			msg_send = self.cipher_message(msg, port_send)
@@ -76,6 +76,9 @@ class Sender(threading.Thread):
 
 			num += 1
 			time.sleep(1)
+
+			if num > 100:
+				break
 
 	def cipher_message(self, msg: bytes, receiver_port: int) -> bytes:
 		return b'1' + self.public_keys[receiver_port].encrypt(msg)

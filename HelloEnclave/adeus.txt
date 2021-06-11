@@ -1,5 +1,3 @@
-Determination of output length failed
-Encryption failed
 
 
 
@@ -7,7 +5,14 @@ Encryption failed
 
 Received!
 Saving the previous public key!
-Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Determination of decrypted output length failed
 
 
 
@@ -16,20 +21,20 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 0
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_1:0
+OLAOLAOLA: TEST_0:0
 OLAOLAOLA: 8
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_1:01
+OLAOLAOLA: TEST_0:01
+Current buffer size: 1
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
 Current buffer size: 1
 Encrypted message with success!
 
@@ -50,20 +55,20 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 1
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_3:0
+OLAOLAOLA: TEST_2:0
 OLAOLAOLA: 8
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_3:01
+OLAOLAOLA: TEST_2:01
+Current buffer size: 2
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
 Current buffer size: 2
 Encrypted message with success!
 
@@ -75,6 +80,7 @@ Received!
 Saving the message to enclave!
 Decrypted message with success!
 Current buffer size: 2
+Encrypted message with success!
 
 
 
@@ -83,11 +89,30 @@ Current buffer size: 2
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_4:0
+Current buffer size: 2
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_5:0
 OLAOLAOLA: 8
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_4:01
+OLAOLAOLA: TEST_5:01
+Current buffer size: 3
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
 Current buffer size: 3
 Encrypted message with success!
 
@@ -98,102 +123,11 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 3
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 3
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_2:01S
+OLAOLAOLA: TEST_6:0
 OLAOLAOLA: 8
-OLAOLAOLA: 7
-2
-OLAOLAOLA: TEST_2:02
-Current buffer size: 4
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 4
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 4
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 4
-BEFORE: TEST_1:01
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_6:01S
-OLAOLAOLA: 8
-OLAOLAOLA: 7
-2
-OLAOLAOLA: TEST_6:02
-Current buffer size: 4
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_11:0
-OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_11:01
-Current buffer size: 5
-BEFORE: TEST_11:01
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
+OLAOLAOLA: TEST_6:01
 Current buffer size: 4
 
 
@@ -203,57 +137,8 @@ Current buffer size: 4
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_12:0
-OLAOLAOLA: 9
-OLAOLAOLA: 1
-1
-OLAOLAOLA: TEST_12:01
-Current buffer size: 5
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 5
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 5
-BEFORE: TEST_6:02
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
 Current buffer size: 4
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_15:0
-OLAOLAOLA: 9
-OLAOLAOLA: 1
-1
-OLAOLAOLA: TEST_15:01
-Current buffer size: 5
+BEFORE: TEST_0:01
 Encrypted message with success!
 
 
@@ -263,11 +148,59 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_8:01S
+OLAOLAOLA: TEST_7:0
 OLAOLAOLA: 8
-OLAOLAOLA: 7
-2
-OLAOLAOLA: TEST_8:02
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_7:01
+Current buffer size: 4
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 4
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_8:0
+OLAOLAOLA: 8
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_8:01
+Current buffer size: 5
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 5
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_9:0
+OLAOLAOLA: 8
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_9:01
 Current buffer size: 6
 
 
@@ -277,13 +210,7 @@ Current buffer size: 6
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_16:0
-OLAOLAOLA: 9
-OLAOLAOLA: 1
-1
-OLAOLAOLA: TEST_16:01
-Current buffer size: 7
-BEFORE: TEST_15:01
+Current buffer size: 6
 Encrypted message with success!
 
 
@@ -293,26 +220,213 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_8:03S
+OLAOLAOLA: TEST_10:0
+OLAOLAOLA: 9
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_10:01
+Current buffer size: 7
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_3:01_¨S°
+OLAOLAOLA: 8
+OLAOLAOLA: 7
+2
+OLAOLAOLA: TEST_3:02
+Current buffer size: 8
+BEFORE: TEST_5:01
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_11:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_11:02
+Current buffer size: 8
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 8
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_13:0
+OLAOLAOLA: 9
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_13:01
+Current buffer size: 9
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 9
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_14:0
+OLAOLAOLA: 9
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_14:01
+Current buffer size: 10
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_12:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_12:02
+Current buffer size: 11
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 11
+BEFORE: TEST_7:01
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_8:02_¨S°
+OLAOLAOLA: 8
+OLAOLAOLA: 7
+3
+OLAOLAOLA: TEST_8:03
+Current buffer size: 11
+BEFORE: TEST_12:02
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 10
+BEFORE: TEST_10:01
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 9
+BEFORE: TEST_13:01
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_19:0
+OLAOLAOLA: 9
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_19:01
+Current buffer size: 9
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_16:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_16:02
+Current buffer size: 10
+BEFORE: TEST_14:01
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_20:0
+OLAOLAOLA: 9
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_20:01
+Current buffer size: 10
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_3:03_¨S°
 OLAOLAOLA: 8
 OLAOLAOLA: 7
 4
-OLAOLAOLA: TEST_8:04
-Current buffer size: 7
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_17:0
-OLAOLAOLA: 9
-OLAOLAOLA: 1
-1
-OLAOLAOLA: TEST_17:01
-Current buffer size: 8
+OLAOLAOLA: TEST_3:04
+Current buffer size: 11
 Encrypted message with success!
 
 
@@ -322,12 +436,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_3:02S
-OLAOLAOLA: 8
-OLAOLAOLA: 7
-3
-OLAOLAOLA: TEST_3:03
-Current buffer size: 9
+OLAOLAOLA: TEST_21:0
+OLAOLAOLA: 9
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_21:01
+Current buffer size: 12
 
 
 
@@ -336,12 +450,8 @@ Current buffer size: 9
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_18:0
-OLAOLAOLA: 9
-OLAOLAOLA: 1
-1
-OLAOLAOLA: TEST_18:01
-Current buffer size: 10
+Current buffer size: 12
+BEFORE: TEST_6:01
 Encrypted message with success!
 
 
@@ -351,13 +461,52 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_14:01S
+OLAOLAOLA: TEST_22:0
+OLAOLAOLA: 9
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_22:01
+Current buffer size: 12
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 12
+BEFORE: TEST_3:04
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_23:0
+OLAOLAOLA: 9
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_23:01
+Current buffer size: 12
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_12:01¨S°
 OLAOLAOLA: 9
 OLAOLAOLA: 6
 2
-OLAOLAOLA: TEST_14:02
-Current buffer size: 11
-BEFORE: TEST_8:02
+OLAOLAOLA: TEST_12:02
+Current buffer size: 13
+BEFORE: TEST_21:01
 Encrypted message with success!
 
 
@@ -367,13 +516,59 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_8:03S
-OLAOLAOLA: 8
-OLAOLAOLA: 7
+OLAOLAOLA: TEST_24:0
+OLAOLAOLA: 9
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_24:01
+Current buffer size: 13
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_21:02¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+3
+OLAOLAOLA: TEST_21:03
+Current buffer size: 14
+BEFORE: TEST_22:01
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_21:02¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+3
+OLAOLAOLA: TEST_21:03
+Current buffer size: 14
+BEFORE: TEST_19:01
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_16:03¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
 4
-OLAOLAOLA: TEST_8:04
-Current buffer size: 11
-BEFORE: TEST_17:01
+OLAOLAOLA: TEST_16:04
+Current buffer size: 14
+BEFORE: TEST_23:01
 Encrypted message with success!
 
 
@@ -383,8 +578,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 10
-Encrypted message with success!
+OLAOLAOLA: TEST_27:0
+OLAOLAOLA: 9
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_27:01
+Current buffer size: 14
 
 
 
@@ -393,12 +592,13 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_8:01S
+OLAOLAOLA: TEST_4:01_¨S°
 OLAOLAOLA: 8
 OLAOLAOLA: 7
 2
-OLAOLAOLA: TEST_8:02
-Current buffer size: 11
+OLAOLAOLA: TEST_4:02
+Current buffer size: 15
+BEFORE: TEST_12:02
 Encrypted message with success!
 
 
@@ -408,60 +608,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_21:01S
-OLAOLAOLA: 9
-OLAOLAOLA: 6
-2
-OLAOLAOLA: TEST_21:02
-Current buffer size: 12
-BEFORE: TEST_2:02
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_22:01S
-OLAOLAOLA: 9
-OLAOLAOLA: 6
-2
-OLAOLAOLA: TEST_22:02
-Current buffer size: 12
-BEFORE: TEST_8:02
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_23:01S
-OLAOLAOLA: 9
-OLAOLAOLA: 6
-2
-OLAOLAOLA: TEST_23:02
-Current buffer size: 12
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_25:0
+OLAOLAOLA: TEST_28:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_25:01
-Current buffer size: 13
-BEFORE: TEST_8:04
-Encrypted message with success!
+OLAOLAOLA: TEST_28:01
+Current buffer size: 15
 
 
 
@@ -470,12 +622,13 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_16:02S
+OLAOLAOLA: TEST_24:02¨S°
 OLAOLAOLA: 9
 OLAOLAOLA: 6
 3
-OLAOLAOLA: TEST_16:03
-Current buffer size: 13
+OLAOLAOLA: TEST_24:03
+Current buffer size: 16
+Encrypted message with success!
 
 
 
@@ -484,14 +637,22 @@ Current buffer size: 13
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_26:0
+Current buffer size: 16
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_30:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_26:01
-Current buffer size: 14
-BEFORE: TEST_25:01
-Encrypted message with success!
+OLAOLAOLA: TEST_30:01
+Current buffer size: 17
 
 
 
@@ -500,29 +661,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_12:02S
-OLAOLAOLA: 9
-OLAOLAOLA: 6
-3
-OLAOLAOLA: TEST_12:03
-Current buffer size: 14
-BEFORE: TEST_3:01
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_24:01S
+OLAOLAOLA: TEST_16:01¨S°
 OLAOLAOLA: 9
 OLAOLAOLA: 6
 2
-OLAOLAOLA: TEST_24:02
-Current buffer size: 14
-BEFORE: TEST_12:03
+OLAOLAOLA: TEST_16:02
+Current buffer size: 18
 Encrypted message with success!
 
 
@@ -532,7 +676,13 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 13
+OLAOLAOLA: TEST_18:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_18:02
+Current buffer size: 19
+Encrypted message with success!
 
 
 
@@ -541,12 +691,116 @@ Current buffer size: 13
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_29:0
+OLAOLAOLA: TEST_22:02¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+3
+OLAOLAOLA: TEST_22:03
+Current buffer size: 20
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_26:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_26:02
+Current buffer size: 21
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_34:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_34:02
+Current buffer size: 22
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_8:04_¨S°
+OLAOLAOLA: 8
+OLAOLAOLA: 7
+5
+OLAOLAOLA: TEST_8:05
+Current buffer size: 23
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_24:02¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+3
+OLAOLAOLA: TEST_24:03
+Current buffer size: 24
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_35:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_35:02
+Current buffer size: 25
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_38:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_29:01
-Current buffer size: 14
+OLAOLAOLA: TEST_38:01
+Current buffer size: 26
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_35:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_35:02
+Current buffer size: 27
 Encrypted message with success!
 
 
@@ -556,33 +810,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 14
-BEFORE: TEST_12:01
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 13
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_31:0
+OLAOLAOLA: TEST_39:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_31:01
-Current buffer size: 14
-BEFORE: TEST_3:03
+OLAOLAOLA: TEST_39:01
+Current buffer size: 28
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 28
 Encrypted message with success!
 
 
@@ -592,7 +834,13 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 13
+OLAOLAOLA: TEST_14:02¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+3
+OLAOLAOLA: TEST_14:03
+Current buffer size: 29
+Encrypted message with success!
 
 
 
@@ -601,13 +849,26 @@ Current buffer size: 13
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_32:0
+OLAOLAOLA: TEST_41:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_32:01
-Current buffer size: 14
-BEFORE: TEST_21:02
+OLAOLAOLA: TEST_41:01
+Current buffer size: 30
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_40:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_40:02
+Current buffer size: 31
 Encrypted message with success!
 
 
@@ -617,22 +878,26 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 13
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_33:0
+OLAOLAOLA: TEST_42:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_33:01
-Current buffer size: 14
-BEFORE: TEST_16:03
+OLAOLAOLA: TEST_42:01
+Current buffer size: 32
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_31:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_31:02
+Current buffer size: 33
 Encrypted message with success!
 
 
@@ -642,7 +907,13 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 13
+OLAOLAOLA: TEST_40:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_40:02
+Current buffer size: 34
+Encrypted message with success!
 
 
 
@@ -651,13 +922,26 @@ Current buffer size: 13
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_34:0
+OLAOLAOLA: TEST_44:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_34:01
-Current buffer size: 14
-BEFORE: TEST_33:01
+OLAOLAOLA: TEST_44:01
+Current buffer size: 35
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_43:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_43:02
+Current buffer size: 36
 Encrypted message with success!
 
 
@@ -667,22 +951,26 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 13
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_35:0
+OLAOLAOLA: TEST_45:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_35:01
-Current buffer size: 14
-BEFORE: TEST_16:01
+OLAOLAOLA: TEST_45:01
+Current buffer size: 37
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_40:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_40:02
+Current buffer size: 38
 Encrypted message with success!
 
 
@@ -692,22 +980,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 13
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_36:0
+OLAOLAOLA: TEST_46:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_36:01
-Current buffer size: 14
-BEFORE: TEST_26:01
+OLAOLAOLA: TEST_46:01
+Current buffer size: 39
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 39
 Encrypted message with success!
 
 
@@ -717,22 +1004,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 13
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_37:0
+OLAOLAOLA: TEST_47:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_37:01
-Current buffer size: 14
-BEFORE: TEST_34:01
+OLAOLAOLA: TEST_47:01
+Current buffer size: 40
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 40
 Encrypted message with success!
 
 
@@ -742,43 +1028,26 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 13
-BEFORE: TEST_32:01
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 12
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 12
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_40:0
+OLAOLAOLA: TEST_48:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_40:01
-Current buffer size: 13
-BEFORE: TEST_18:01
+OLAOLAOLA: TEST_48:01
+Current buffer size: 41
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_31:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_31:02
+Current buffer size: 42
 Encrypted message with success!
 
 
@@ -788,8 +1057,7 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 12
-BEFORE: TEST_37:01
+Current buffer size: 42
 Encrypted message with success!
 
 
@@ -799,8 +1067,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 11
-BEFORE: TEST_29:01
+OLAOLAOLA: TEST_22:02¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+3
+OLAOLAOLA: TEST_22:03
+Current buffer size: 43
 Encrypted message with success!
 
 
@@ -810,22 +1082,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 10
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_43:0
+OLAOLAOLA: TEST_51:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_43:01
-Current buffer size: 11
-BEFORE: TEST_36:01
+OLAOLAOLA: TEST_51:01
+Current buffer size: 44
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 44
 Encrypted message with success!
 
 
@@ -835,8 +1106,7 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 10
-BEFORE: TEST_43:01
+Current buffer size: 44
 Encrypted message with success!
 
 
@@ -846,8 +1116,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 9
-BEFORE: TEST_35:01
+OLAOLAOLA: TEST_52:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_52:02
+Current buffer size: 45
 Encrypted message with success!
 
 
@@ -857,7 +1131,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 8
+OLAOLAOLA: TEST_22:02¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+3
+OLAOLAOLA: TEST_22:03
+Current buffer size: 46
 Encrypted message with success!
 
 
@@ -867,42 +1146,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 8
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 8
-BEFORE: TEST_24:02
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 7
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_49:0
+OLAOLAOLA: TEST_55:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_49:01
-Current buffer size: 8
+OLAOLAOLA: TEST_55:01
+Current buffer size: 47
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 47
 Encrypted message with success!
 
 
@@ -912,22 +1170,26 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 8
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_50:0
+OLAOLAOLA: TEST_56:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_50:01
-Current buffer size: 9
-BEFORE: TEST_14:02
+OLAOLAOLA: TEST_56:01
+Current buffer size: 48
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_40:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_40:02
+Current buffer size: 49
 Encrypted message with success!
 
 
@@ -937,31 +1199,26 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 8
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 8
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_52:0
+OLAOLAOLA: TEST_57:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_52:01
-Current buffer size: 9
+OLAOLAOLA: TEST_57:01
+Current buffer size: 50
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_22:02¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+3
+OLAOLAOLA: TEST_22:03
+Current buffer size: 51
 Encrypted message with success!
 
 
@@ -971,22 +1228,26 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 9
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_53:0
+OLAOLAOLA: TEST_58:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_53:01
-Current buffer size: 10
-BEFORE: TEST_50:01
+OLAOLAOLA: TEST_58:01
+Current buffer size: 52
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_40:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_40:02
+Current buffer size: 53
 Encrypted message with success!
 
 
@@ -996,7 +1257,8 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 9
+Current buffer size: 53
+Encrypted message with success!
 
 
 
@@ -1005,13 +1267,21 @@ Current buffer size: 9
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_54:0
+OLAOLAOLA: TEST_60:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_54:01
-Current buffer size: 10
-BEFORE: TEST_8:04
+OLAOLAOLA: TEST_60:01
+Current buffer size: 54
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 54
 Encrypted message with success!
 
 
@@ -1021,64 +1291,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 9
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 9
-BEFORE: TEST_31:01
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 8
-BEFORE: TEST_4:01
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 7
-BEFORE: TEST_23:02
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 6
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_59:0
+OLAOLAOLA: TEST_61:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_59:01
-Current buffer size: 7
+OLAOLAOLA: TEST_61:01
+Current buffer size: 55
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 55
 Encrypted message with success!
 
 
@@ -1088,7 +1315,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 7
+OLAOLAOLA: TEST_40:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_40:02
+Current buffer size: 56
 Encrypted message with success!
 
 
@@ -1098,32 +1330,26 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 7
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 7
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_62:0
+OLAOLAOLA: TEST_63:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_62:01
-Current buffer size: 8
-BEFORE: TEST_22:02
+OLAOLAOLA: TEST_63:01
+Current buffer size: 57
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_62:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_62:02
+Current buffer size: 58
 Encrypted message with success!
 
 
@@ -1133,8 +1359,7 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 7
-BEFORE: TEST_62:01
+Current buffer size: 58
 Encrypted message with success!
 
 
@@ -1144,7 +1369,8 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 6
+Current buffer size: 58
+Encrypted message with success!
 
 
 
@@ -1153,12 +1379,26 @@ Current buffer size: 6
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_64:0
+OLAOLAOLA: TEST_66:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_64:01
-Current buffer size: 7
+OLAOLAOLA: TEST_66:01
+Current buffer size: 59
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_65:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_65:02
+Current buffer size: 60
 Encrypted message with success!
 
 
@@ -1168,21 +1408,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 7
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_65:0
+OLAOLAOLA: TEST_67:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_65:01
-Current buffer size: 8
+OLAOLAOLA: TEST_67:01
+Current buffer size: 61
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 61
 Encrypted message with success!
 
 
@@ -1192,8 +1432,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 8
-BEFORE: TEST_64:01
+OLAOLAOLA: TEST_53:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_53:02
+Current buffer size: 62
 Encrypted message with success!
 
 
@@ -1203,32 +1447,26 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 7
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 7
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_68:0
+OLAOLAOLA: TEST_69:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_68:01
-Current buffer size: 8
-BEFORE: TEST_52:01
+OLAOLAOLA: TEST_69:01
+Current buffer size: 63
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_68:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_68:02
+Current buffer size: 64
 Encrypted message with success!
 
 
@@ -1238,8 +1476,7 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 7
-BEFORE: TEST_65:01
+Current buffer size: 64
 Encrypted message with success!
 
 
@@ -1249,7 +1486,13 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 6
+OLAOLAOLA: TEST_59:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_59:02
+Current buffer size: 65
+Encrypted message with success!
 
 
 
@@ -1258,12 +1501,46 @@ Current buffer size: 6
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_70:0
+OLAOLAOLA: TEST_70:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_70:02
+Current buffer size: 66
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 66
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_74:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_70:01
-Current buffer size: 7
+OLAOLAOLA: TEST_74:01
+Current buffer size: 67
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 67
 Encrypted message with success!
 
 
@@ -1273,22 +1550,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 7
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_71:0
+OLAOLAOLA: TEST_75:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_71:01
-Current buffer size: 8
-BEFORE: TEST_54:01
+OLAOLAOLA: TEST_75:01
+Current buffer size: 68
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 68
 Encrypted message with success!
 
 
@@ -1298,22 +1574,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 7
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_72:0
+OLAOLAOLA: TEST_76:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_72:01
-Current buffer size: 8
-BEFORE: TEST_68:01
+OLAOLAOLA: TEST_76:01
+Current buffer size: 69
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 69
 Encrypted message with success!
 
 
@@ -1323,21 +1598,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 7
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_73:0
+OLAOLAOLA: TEST_77:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_73:01
-Current buffer size: 8
+OLAOLAOLA: TEST_77:01
+Current buffer size: 70
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 70
 Encrypted message with success!
 
 
@@ -1347,7 +1622,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 8
+OLAOLAOLA: TEST_49:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_49:02
+Current buffer size: 71
 Encrypted message with success!
 
 
@@ -1357,52 +1637,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 8
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 8
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 8
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 8
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_78:0
+OLAOLAOLA: TEST_79:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_78:01
-Current buffer size: 9
-BEFORE: TEST_40:01
+OLAOLAOLA: TEST_79:01
+Current buffer size: 72
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 72
 Encrypted message with success!
 
 
@@ -1412,52 +1661,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 8
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 8
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 8
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 8
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_82:0
+OLAOLAOLA: TEST_80:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_82:01
-Current buffer size: 9
-BEFORE: TEST_82:01
+OLAOLAOLA: TEST_80:01
+Current buffer size: 73
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 73
 Encrypted message with success!
 
 
@@ -1467,22 +1685,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 8
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_83:0
+OLAOLAOLA: TEST_81:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_83:01
-Current buffer size: 9
-BEFORE: TEST_83:01
+OLAOLAOLA: TEST_81:01
+Current buffer size: 74
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 74
 Encrypted message with success!
 
 
@@ -1492,7 +1709,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 8
+OLAOLAOLA: TEST_82:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_82:02
+Current buffer size: 75
 Encrypted message with success!
 
 
@@ -1502,7 +1724,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 8
+OLAOLAOLA: TEST_83:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_83:02
+Current buffer size: 76
 Encrypted message with success!
 
 
@@ -1512,41 +1739,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 8
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 8
-Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 8
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_88:0
+OLAOLAOLA: TEST_84:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_88:01
-Current buffer size: 9
+OLAOLAOLA: TEST_84:01
+Current buffer size: 77
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 77
 Encrypted message with success!
 
 
@@ -1556,21 +1763,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 9
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_89:0
+OLAOLAOLA: TEST_85:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_89:01
-Current buffer size: 10
+OLAOLAOLA: TEST_85:01
+Current buffer size: 78
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 78
 Encrypted message with success!
 
 
@@ -1580,22 +1787,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 10
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_90:0
+OLAOLAOLA: TEST_86:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_90:01
-Current buffer size: 11
-BEFORE: TEST_70:01
+OLAOLAOLA: TEST_86:01
+Current buffer size: 79
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 79
 Encrypted message with success!
 
 
@@ -1605,22 +1811,21 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 10
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-OLAOLAOLA: TEST_91:0
+OLAOLAOLA: TEST_87:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_91:01
-Current buffer size: 11
-BEFORE: TEST_71:01
+OLAOLAOLA: TEST_87:01
+Current buffer size: 80
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 80
 Encrypted message with success!
 
 
@@ -1630,7 +1835,7 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 10
+Current buffer size: 80
 Encrypted message with success!
 
 
@@ -1640,7 +1845,8 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 10
+Current buffer size: 80
+Encrypted message with success!
 
 
 
@@ -1649,13 +1855,51 @@ Current buffer size: 10
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_93:0
+OLAOLAOLA: TEST_71:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_71:02
+Current buffer size: 81
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_72:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_72:02
+Current buffer size: 82
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_92:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_93:01
-Current buffer size: 11
-BEFORE: TEST_89:01
+OLAOLAOLA: TEST_92:01
+Current buffer size: 83
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 83
 Encrypted message with success!
 
 
@@ -1665,7 +1909,13 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 10
+OLAOLAOLA: TEST_90:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_90:02
+Current buffer size: 84
+Encrypted message with success!
 
 
 
@@ -1674,13 +1924,36 @@ Current buffer size: 10
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-OLAOLAOLA: TEST_94:0
+OLAOLAOLA: TEST_78:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_78:02
+Current buffer size: 85
+Encrypted message with success!
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_95:0
 OLAOLAOLA: 9
 OLAOLAOLA: 1
 1
-OLAOLAOLA: TEST_94:01
-Current buffer size: 11
-BEFORE: TEST_73:01
+OLAOLAOLA: TEST_95:01
+Current buffer size: 86
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+Current buffer size: 86
 Encrypted message with success!
 
 
@@ -1690,7 +1963,26 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 10
+OLAOLAOLA: TEST_96:0
+OLAOLAOLA: 9
+OLAOLAOLA: 1
+1
+OLAOLAOLA: TEST_96:01
+Current buffer size: 87
+
+
+
+
+
+Received!
+Saving the message to enclave!
+Decrypted message with success!
+OLAOLAOLA: TEST_59:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_59:02
+Current buffer size: 88
 Encrypted message with success!
 
 
@@ -1700,8 +1992,12 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 10
-BEFORE: TEST_53:01
+OLAOLAOLA: TEST_72:01¨S°
+OLAOLAOLA: 9
+OLAOLAOLA: 6
+2
+OLAOLAOLA: TEST_72:02
+Current buffer size: 89
 Encrypted message with success!
 
 
@@ -1711,23 +2007,6 @@ Encrypted message with success!
 Received!
 Saving the message to enclave!
 Decrypted message with success!
-Current buffer size: 9
-BEFORE: TEST_59:01
+Current buffer size: 89
 Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
-Decrypted message with success!
-Current buffer size: 8
 Encrypted message with success!
-
-
-
-
-
-Received!
-Saving the message to enclave!
