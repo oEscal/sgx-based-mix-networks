@@ -54,7 +54,9 @@ enclave {
 
         public void dispatch(
             [out, size=256]unsigned char *result,
-            [out, size=4]int *fan_out
+            [out, size=4]int *fan_out,
+            [out, size=8]size_t *buffer_size,
+            int fan_all_out
         );
     };
 

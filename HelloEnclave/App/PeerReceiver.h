@@ -38,24 +38,31 @@ private:
 	sgx_enclave_id_t eid;
 	unsigned char my_public_module[256];
 	unsigned char previous_public_module[256];
-	bool flag_received_previous_module = false; 
 
+	bool flag_received_previous_module = false; 
+	bool flag_access_enclave = 1;
+	bool flag_finish = 0;
+
+	int prev_port;
 	int next_port;
 	int producer_port;
 
-	int sending_rate = 1;
+	int fan_all_out = 0;
+
+	int sending_rate = 1000000/50;
 	float fan_out_probability = 0.01;
 	int watermark = 10;
 	int sockfd=0, newsockfd=0, portno=0;
 	socklen_t clilen;
 	struct sockaddr_in serv_addr, cli_addr;
-	void Send(std::string, int, void *, int);
+	bool Send(std::string, int, void *, int);
+	void SendRetry(std::string, int, void *, int);
 	void SendMessage();
 	float GenerateRandomValue();
 	void receive_messages();
 
 public:
-	PeerReceiver(std::string, std::string, int, int, sgx_enclave_id_t*);
+	PeerReceiver(std::string, std::string, int, int, int, sgx_enclave_id_t*);
 	void Start();
 };
 

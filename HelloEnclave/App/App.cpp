@@ -236,17 +236,17 @@ void ocall_print_string(const char *str)
 }
 
 //The PeerReceiver Thread act like a server
-void StartThePeerReceiver(string PeerReceiverName, string PeerReceiverPort, int next_port, int producer_port,  sgx_enclave_id_t *eid){
+void StartThePeerReceiver(string PeerReceiverName, string PeerReceiverPort, int prev_port, int next_port, int producer_port,  sgx_enclave_id_t *eid){
 
-	std::unique_ptr<PeerReceiver> rec(new PeerReceiver(PeerReceiverName, PeerReceiverPort, next_port, producer_port, eid));
+	std::unique_ptr<PeerReceiver> rec(new PeerReceiver(PeerReceiverName, PeerReceiverPort, prev_port, next_port, producer_port, eid));
 	rec->Start();
 }
 
-void init_mix(string port, int next_port, int producer_port){
+void init_mix(string port, int prev_port, int next_port, int producer_port){
 	string PeerReceiverName ="localhost";
 	string PeerReceiverPort = port;
 
-	thread PeerReceiver(StartThePeerReceiver, PeerReceiverName, PeerReceiverPort, next_port, producer_port, &global_eid);
+	thread PeerReceiver(StartThePeerReceiver, PeerReceiverName, PeerReceiverPort, prev_port, next_port, producer_port, &global_eid);
 	PeerReceiver.join();
 }
 
@@ -258,13 +258,14 @@ int SGX_CDECL main(int argc, char *argv[])
     (void)(argv);
 
 
-    if (argc < 4)
+    if (argc < 5)
         exit(1);
 
     
     string port = argv[1];
-    int next_port = std::stoi(argv[2]);
-    int producer_port = std::stoi(argv[3]);
+    int prev_port = std::stoi(argv[2]);
+    int next_port = std::stoi(argv[3]);
+    int producer_port = std::stoi(argv[4]);
 
 
     /* Initialize the enclave */
@@ -274,7 +275,7 @@ int SGX_CDECL main(int argc, char *argv[])
         return -1; 
     }
 
-    init_mix(port, next_port, producer_port);
+    init_mix(port, prev_port, next_port, producer_port);
  
     // printf("%s\n", p_n);
 

@@ -140,7 +140,6 @@ void import_message(unsigned char *message) {
     if (strcmp(content_compare, MESSAGE_FALSE) != 0) {
         std::string decrypted_str = std::string((char *) decrypted_pout_data);
         
-        // printf("OLAOLAOLA: %s\n", decrypted_pout_data);
         int current_op_index = decrypted_str.find(':') + 1;
         char current_op_str[decrypted_str.length() - current_op_index + 1];
 
@@ -151,12 +150,8 @@ void import_message(unsigned char *message) {
         decrypted_str.copy(message_without_op, current_op_index);
         message_without_op[current_op_index] = '\0';
 
-        // printf("OLAOLAOLA: %d\n", strlen(message_without_op));
-        // printf("OLAOLAOLA: %d\n", strlen(current_op_str));
         int current_op = std::stoi(current_op_str) + 1;
-        // printf("%d\n", current_op);
         buffer.push_back(std::string(message_without_op) + std::to_string(current_op));
-        // printf("OLAOLAOLA: %s\n", buffer.at(buffer.size() - 1).c_str());
     } 
 
     printf("Current buffer size: %d\n", buffer.size());
@@ -176,30 +171,28 @@ float generate_random_value() {
 const int WATER_MARK = 15;
 const float PROBABILITY_FAN_OUT = 0.01;
 
-void dispatch(unsigned char *result, int *fan_out) {
+void dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_all_out) {
 
     unsigned char *message;
     float probability_false = (WATER_MARK - (float)buffer.size()) / (float)WATER_MARK;
-    printf("BEFORE: %f\n", probability_false);
     *fan_out = 0;
     
-    if (probability_false > 0 && generate_random_value() < probability_false) {          // create a false message
+    if (probability_false > 0 && generate_random_value() < probability_false && !fan_all_out) {             // create a false message
         message = (unsigned char *)"False";
-    } else {
+        *buffer_size = buffer.size();
+    } else {                                                                                                // obtain a message from the buffer
         int index = (int)(generate_random_value()*buffer.size());
-        message = (unsigned char *) buffer.at(index).c_str();
-        printf("BEFORE: %s\n", (char *) message);
-                                                                                              // obtain a message from the buffer
-        // 
-        // std::string msg_str = buffer.at(index);
-        // 
-// 
-        // for (int i = 0; i < 256; i++)
-        //     message_cp[i] = msg_str.at(i);
+        char *choosen_message = (char *) buffer.at(index).c_str();
+        message = (unsigned char *)malloc(strlen(choosen_message));
+        std::copy(choosen_message, choosen_message + strlen(choosen_message), message);
+        message[strlen(choosen_message)] = '\0';
 
+                                                                                              
         buffer.erase(buffer.begin() + index);
 
-        if (generate_random_value() < PROBABILITY_FAN_OUT) {
+        *buffer_size = buffer.size();
+
+        if (fan_all_out || generate_random_value() < PROBABILITY_FAN_OUT) {
             *fan_out = 1;
             std::copy(message, message + strlen((char *) message), result);
             return;
@@ -213,6 +206,7 @@ void dispatch(unsigned char *result, int *fan_out) {
 
     if ( ret_get_output_len != SGX_SUCCESS) {
         printf("Determination of output length failed\n");
+        return;
     }
 
     sgx_status_t ret_encrypt = sgx_rsa_pub_encrypt_sha256(
@@ -220,50 +214,8 @@ void dispatch(unsigned char *result, int *fan_out) {
 
     if ( ret_encrypt != SGX_SUCCESS) {
         printf("Encryption failed\n");
+        return;
     } else {
         printf("Encrypted message with success!\n");
     }
 }
-
-
-/*
-void encrypt(unsigned char *p_n) {
-    // unsigned char p_n[256];
-    char * pin_data = "Hello World!";
-    size_t out_len = 0;
-
-    sgx_status_t ret_get_output_len = sgx_rsa_pub_encrypt_sha256(public_key, NULL, &out_len, (unsigned char *)pin_data, strlen(pin_data));
-
-    if ( ret_get_output_len != SGX_SUCCESS) {
-        printf("Determination of output length failed");
-    }
-
-    unsigned char pout_data[out_len];
-
-    sgx_status_t ret_encrypt = sgx_rsa_pub_encrypt_sha256(public_key, pout_data, &out_len, (unsigned char *)pin_data, strlen(pin_data));
-
-    if ( ret_encrypt != SGX_SUCCESS) {
-        printf("Encryption failed");
-    } else {
-    }
-
-    size_t decrypted_out_len = 0;
-
-    sgx_status_t ret_determine_decrypt_len = sgx_rsa_priv_decrypt_sha256(private_key, NULL, &decrypted_out_len, pout_data, sizeof(pout_data));
-
-    if ( ret_determine_decrypt_len != SGX_SUCCESS) {
-        printf("Determination of decrypted output length failed");
-    }
-
-    unsigned char decrypted_pout_data[decrypted_out_len];
-
-    sgx_status_t ret_decrypt = sgx_rsa_priv_decrypt_sha256(private_key, decrypted_pout_data, &decrypted_out_len, pout_data, sizeof(pout_data));
-
-    if ( ret_decrypt != SGX_SUCCESS) {
-        printf("Decryption failed");
-    } else {
-        printf("Decrypted MESSAGE:");
-        printf("%s\n", (char *)decrypted_pout_data);
-    }
-}
-*/
