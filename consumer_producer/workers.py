@@ -51,7 +51,7 @@ class Receiver(threading.Thread):
 		try:
 			s = socket.socket()
 			s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-			s.settimeout(5)
+			s.settimeout(10)
 			s.bind(('127.0.0.1', self.port))
 			s.listen(4096)
 
@@ -71,6 +71,7 @@ class Receiver(threading.Thread):
 					print("oof")
 					print(len(self.received_messages))
 					if len(self.received_messages) == self.number_messages:
+						print("Joining all the worker threads and finishing the main receiver worker")
 						for thread in threads:
 							thread.join(0)
 						break

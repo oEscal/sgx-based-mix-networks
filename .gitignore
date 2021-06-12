@@ -121,4 +121,5 @@ PeerToPeer
 app
 .config_SIM_DEBUG_x64 
 
+logs
 report/

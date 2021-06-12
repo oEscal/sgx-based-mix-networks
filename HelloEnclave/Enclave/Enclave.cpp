@@ -168,10 +168,10 @@ float generate_random_value() {
     return (float)random_value / (float)UINT_MAX;
 }
 
-const int WATER_MARK = 100;
+const int WATER_MARK = 50;
 const float PROBABILITY_FAN_OUT = 0.01;
 
-void dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_all_out) {
+int dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_all_out) {
 
     unsigned char *message;
     float probability_false = (WATER_MARK - (float)buffer.size()) / (float)WATER_MARK;
@@ -181,6 +181,11 @@ void dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_
         message = (unsigned char *)"False";
         *buffer_size = buffer.size();
     } else {                                                                                                // obtain a message from the buffer
+        *buffer_size = buffer.size();
+
+        if (buffer.size() < 1)
+            return -1;
+
         int index = (int)(generate_random_value()*buffer.size());
         char *choosen_message = (char *) buffer.at(index).c_str();
         message = (unsigned char *)malloc(strlen(choosen_message));
@@ -190,12 +195,10 @@ void dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_
                                                                                               
         buffer.erase(buffer.begin() + index);
 
-        *buffer_size = buffer.size();
-
         if (fan_all_out || generate_random_value() < PROBABILITY_FAN_OUT) {
             *fan_out = 1;
             std::copy(message, message + strlen((char *) message), result);
-            return;
+            return 1;
         }
     }
 
@@ -206,7 +209,7 @@ void dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_
 
     if ( ret_get_output_len != SGX_SUCCESS) {
         printf("Determination of output length failed\n");
-        return;
+        return 0;
     }
 
     sgx_status_t ret_encrypt = sgx_rsa_pub_encrypt_sha256(
@@ -214,8 +217,10 @@ void dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_
 
     if ( ret_encrypt != SGX_SUCCESS) {
         printf("Encryption failed\n");
-        return;
+        return 0;
     } else {
         printf("Encrypted message with success!\n");
     }
+
+    return 1;
 }

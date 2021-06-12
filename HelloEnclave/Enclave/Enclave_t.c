@@ -40,6 +40,7 @@ typedef struct ms_set_public_key_t {
 } ms_set_public_key_t;
 
 typedef struct ms_dispatch_t {
+	int ms_retval;
 	unsigned char* ms_result;
 	int* ms_fan_out;
 	size_t* ms_buffer_size;
@@ -257,7 +258,7 @@ static sgx_status_t SGX_CDECL sgx_dispatch(void* pms)
 		memset((void*)_in_buffer_size, 0, _len_buffer_size);
 	}
 
-	dispatch(_in_result, _in_fan_out, _in_buffer_size, ms->ms_fan_all_out);
+	ms->ms_retval = dispatch(_in_result, _in_fan_out, _in_buffer_size, ms->ms_fan_all_out);
 	if (_in_result) {
 		if (memcpy_s(_tmp_result, _len_result, _in_result, _len_result)) {
 			status = SGX_ERROR_UNEXPECTED;

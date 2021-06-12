@@ -9,6 +9,7 @@ using namespace std;
 
 
 std::mutex mtx;
+std::mutex send_message_mtx;
 
 
 void wrap_message(unsigned char *message_to_send, unsigned char *content, char message_type) {
@@ -99,31 +100,42 @@ void PeerReceiver::SendMessage() {
 		unsigned char content[256];
 		int fan_out = 0;
 		size_t buffer_size = 1;
+		int dispatch_response = 0;
+
+		send_message_mtx.lock();
 
 		mtx.lock();
-		dispatch(this->eid, content, &fan_out, &buffer_size, this->fan_all_out);
+		cout << "Locking" << endl;
+		dispatch(this->eid, &dispatch_response, content, &fan_out, &buffer_size, this->fan_all_out);
+		cout << "Unlocking" << endl;
 		mtx.unlock();
-
-		cout << "Buffer size: " << buffer_size << endl;
 
 		unsigned char message_to_send[256 + 1];
 
-		if (fan_out) {
-			wrap_message(message_to_send, content, '2');
+		if (dispatch_response >= 0) {
+			if (fan_out) {
+				wrap_message(message_to_send, content, '2');
 
-			unsigned char message_to_send_producer[256 + 1 + this->ReceiverPort.length()];
-   		std::copy(this->ReceiverPort.c_str(), this->ReceiverPort.c_str() + this->ReceiverPort.length(), message_to_send_producer);
-   		std::copy(message_to_send, message_to_send + 257, message_to_send_producer + this->ReceiverPort.length());
+				unsigned char message_to_send_producer[256 + 1 + this->ReceiverPort.length()];
+   			std::copy(this->ReceiverPort.c_str(), this->ReceiverPort.c_str() + this->ReceiverPort.length(), message_to_send_producer);
+   			std::copy(message_to_send, message_to_send + 257, message_to_send_producer + this->ReceiverPort.length());
 
-			SendRetry("127.0.0.1", this->producer_port, message_to_send_producer, strlen((char *) message_to_send_producer));
-		} else {
-			wrap_message(message_to_send, content, '1');
+				SendRetry("127.0.0.1", this->producer_port, message_to_send_producer, strlen((char *) message_to_send_producer));
+			} else {
+				wrap_message(message_to_send, content, '1');
 
-   		// send the next message
-   		SendRetry("127.0.0.1", this->next_port, message_to_send, 257);
+   			// send the next message
+   			SendRetry("127.0.0.1", this->next_port, message_to_send, 257);
+			}
 		}
 
-		if (this->fan_all_out && buffer_size == 0) {
+		send_message_mtx.unlock();
+
+		cout << "Buffer size: " << buffer_size << endl;
+		cout << "Fan all out: " << this->fan_all_out << endl;
+		cout << "Previous started fan out: " << this->flag_previous_started_fan_out << endl;
+
+		if (this->fan_all_out && this->flag_previous_started_fan_out && buffer_size == 0) {
 			this->flag_finish = 1;
 			return;
 		}
@@ -135,10 +147,10 @@ void PeerReceiver::receive_messages() {
 		newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen); // Waiting connections
 		
 		if (newsockfd < 0)
-			std::cout << "ERROR on accept" << strerror(errno)<<"\n";
+			cout << "ERROR on accept" << strerror(errno)<<"\n";
 
 		unsigned char cmd[MAX_COMMAND_LEN];
-		recv(newsockfd, cmd, MAX_COMMAND_LEN, 0);
+		ssize_t recv_bytes = recv(newsockfd, cmd, MAX_COMMAND_LEN, 0);
 
       // message with the public key
       unsigned char message[256];
@@ -158,8 +170,20 @@ void PeerReceiver::receive_messages() {
       }
 
 		if (unwrap_message(message, cmd) == '3') {
-			cout << "Received order to fan all the messages out and to stop the node!" << endl;
+			cout << "Received order to fan all the messages out and to stop the node from the producer!" << endl;
+			sleep(1);
 			this->fan_all_out = 1;
+
+			send_message_mtx.lock();
+			// send order to fan out to the previous node
+			unsigned char *message_to_send = (unsigned char *)"4\0";
+			SendRetry("127.0.0.1", this->next_port, message_to_send, 2);
+			send_message_mtx.unlock();
+		}
+
+		if (unwrap_message(message, cmd) == '4') {
+			cout << "Received end of work from the previous node!" << endl;
+			this->flag_previous_started_fan_out = true;
 		}
 		
 		close(newsockfd);
@@ -214,9 +238,12 @@ void PeerReceiver::Start(){
 	// thread to send messages
 	thread SendMessagesJob(&PeerReceiver::SendMessage, this);
 	
-	ReceiveMessagesJob.join();
+	
 	SendMessagesJob.join();
+	ReceiveMessagesJob.detach();
 	close(sockfd);
+
+	cout << "Exiting" << endl;
 
 	return;
 }

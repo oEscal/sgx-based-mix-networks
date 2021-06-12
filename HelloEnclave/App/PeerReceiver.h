@@ -40,6 +40,7 @@ private:
 	unsigned char previous_public_module[256];
 
 	bool flag_received_previous_module = false; 
+	bool flag_previous_started_fan_out = false;
 	bool flag_access_enclave = 1;
 	bool flag_finish = 0;
 

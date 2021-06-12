@@ -52,7 +52,7 @@ enclave {
             [in, size=256]unsigned char *module
         );
 
-        public void dispatch(
+        public int dispatch(
             [out, size=256]unsigned char *result,
             [out, size=4]int *fan_out,
             [out, size=8]size_t *buffer_size,
