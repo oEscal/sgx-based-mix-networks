@@ -31,13 +31,6 @@
 *.out
 *.app
 
-SGX101_sample_code
-linux-sgx
-PeerToPeer
-
-.vscode
-.idea
-
 
 ### Clion
 ### C++ template
@@ -116,3 +109,16 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+
+
+SGX101_sample_code
+linux-sgx
+PeerToPeer
+
+.vscode
+.idea
+
+app
+.config_SIM_DEBUG_x64 
+
+report/
