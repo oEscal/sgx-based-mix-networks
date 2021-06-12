@@ -16,6 +16,8 @@ typedef struct ms_set_public_key_t {
 typedef struct ms_dispatch_t {
 	unsigned char* ms_result;
 	int* ms_fan_out;
+	size_t* ms_buffer_size;
+	int ms_fan_all_out;
 } ms_dispatch_t;
 
 typedef struct ms_ocall_print_string_t {
@@ -66,12 +68,14 @@ sgx_status_t set_public_key(sgx_enclave_id_t eid, unsigned char* module)
 	return status;
 }
 
-sgx_status_t dispatch(sgx_enclave_id_t eid, unsigned char* result, int* fan_out)
+sgx_status_t dispatch(sgx_enclave_id_t eid, unsigned char* result, int* fan_out, size_t* buffer_size, int fan_all_out)
 {
 	sgx_status_t status;
 	ms_dispatch_t ms;
 	ms.ms_result = result;
 	ms.ms_fan_out = fan_out;
+	ms.ms_buffer_size = buffer_size;
+	ms.ms_fan_all_out = fan_all_out;
 	status = sgx_ecall(eid, 3, &ocall_table_Enclave, &ms);
 	return status;
 }

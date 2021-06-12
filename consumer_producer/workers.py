@@ -53,7 +53,7 @@ class Receiver(threading.Thread):
 			s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 			s.settimeout(5)
 			s.bind(('127.0.0.1', self.port))
-			s.listen(4000)
+			s.listen(4096)
 
 			message_queue = Queue()
 
@@ -91,9 +91,11 @@ class Sender(threading.Thread):
 	def run(self):
 		num = 0
 		print("Waiting...")
+		start = time.time()
 		while True:
 			if len(self.public_keys) < self.min_number_mixes:
 				time.sleep(1)
+				start = time.time()
 				continue
 
 			time.sleep(self.rate)
@@ -108,6 +110,9 @@ class Sender(threading.Thread):
 			num += 1
 
 			if num > self.number_messages - 1:
+				delta = time.time() - start
+				print(f"Waiting for {delta} seconds")
+				time.sleep(delta)
 				print("STOP")
 				for port_send in self.public_keys:
 					print(f"Sending Fan out to port {port_send}!\n\n\n")
@@ -124,6 +129,7 @@ class Sender(threading.Thread):
 			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 			s.connect(("localhost", port))
 			s.send(msg)
+			s.close()
 		except Exception as e:
 			print(f"Error running the Sender worker: <{e}>")
 			return

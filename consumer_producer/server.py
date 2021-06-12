@@ -12,7 +12,7 @@ def main():
 	                           received_messages=received_messages)
 	receiver_thread.start()
 
-	sender_thread = Sender(min_number_mixes=10, rate=0.01, public_keys=public_keys, number_messages=number_messages)
+	sender_thread = Sender(min_number_mixes=10, rate=0, public_keys=public_keys, number_messages=number_messages)
 	sender_thread.start()
 
 	while True:
