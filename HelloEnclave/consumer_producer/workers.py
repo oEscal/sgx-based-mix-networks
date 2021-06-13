@@ -8,7 +8,9 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 from Crypto.Hash import SHA256
 
+
 MESSAGE_RECV_SIZE = 261
+FAN_OUT_WAIT_TIME = 2*60
 
 
 class Receiver(threading.Thread):
@@ -109,6 +111,8 @@ class Sender(threading.Thread):
 			num += 1
 
 			if num > self.number_messages - 1:
+				print(f"Stopped sending messages. Wating for <{FAN_OUT_WAIT_TIME}> seconds to send fan out order")
+				time.sleep(FAN_OUT_WAIT_TIME)
 				print("STOP")
 				for port_send in self.public_keys:
 					print(f"Sending Fan out to port {port_send}!\n\n\n")

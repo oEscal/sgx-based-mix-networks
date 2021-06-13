@@ -39,16 +39,15 @@ private:
 	unsigned char my_public_module[256];
 	unsigned char previous_public_module[256];
 
+	// flags
+	int fan_all_out = 0;
 	bool flag_received_previous_module = false; 
 	bool flag_previous_started_fan_out = false;
-	bool flag_access_enclave = 1;
-	bool flag_finish = 0;
 
+	// ports of other mixes and consumer/producer
 	int prev_port;
 	int next_port;
 	int producer_port;
-
-	int fan_all_out = 0;
 
 	int sending_rate = 1000000/50;
 	float fan_out_probability = 0.01;

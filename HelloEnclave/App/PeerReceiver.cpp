@@ -136,7 +136,6 @@ void PeerReceiver::SendMessage() {
 		cout << "Previous started fan out: " << this->flag_previous_started_fan_out << endl;
 
 		if (this->fan_all_out && this->flag_previous_started_fan_out && buffer_size == 0) {
-			this->flag_finish = 1;
 			return;
 		}
 	}
@@ -155,7 +154,7 @@ void PeerReceiver::receive_messages() {
       // message with the public key
       unsigned char message[256];
       if (unwrap_message(message, cmd) == '0') {
-         cout << "Saving the previous public key!" << endl;
+         cout << "Saving the next mix public key!" << endl;
          set_public_key(this->eid, message);
 			this->flag_received_previous_module = true;
       } 
@@ -171,7 +170,6 @@ void PeerReceiver::receive_messages() {
 
 		if (unwrap_message(message, cmd) == '3') {
 			cout << "Received order to fan all the messages out and to stop the node from the producer!" << endl;
-			sleep(1);
 			this->fan_all_out = 1;
 
 			send_message_mtx.lock();
@@ -187,9 +185,6 @@ void PeerReceiver::receive_messages() {
 		}
 		
 		close(newsockfd);
-
-		if (this->flag_finish)
-			return;
 	}
 }
 
@@ -237,7 +232,6 @@ void PeerReceiver::Start(){
 
 	// thread to send messages
 	thread SendMessagesJob(&PeerReceiver::SendMessage, this);
-	
 	
 	SendMessagesJob.join();
 	ReceiveMessagesJob.detach();

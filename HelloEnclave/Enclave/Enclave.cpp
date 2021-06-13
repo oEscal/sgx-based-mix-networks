@@ -52,6 +52,9 @@ std::vector<std::string> buffer;
 
 const char *MESSAGE_FALSE = "False";
 
+const int WATER_MARK = 100;
+const float PROBABILITY_FAN_OUT = 0.01;
+
 
 /* 
  * printf: 
@@ -92,14 +95,6 @@ void create_keys(unsigned char *p_n) {
     if ( ret_create_private_key != SGX_SUCCESS) {
         printf("Private key generation failed");
     }
-
-    // void *public_key = NULL;
-// 
-    // sgx_status_t ret_create_public_key = sgx_create_rsa_pub1_key(n_byte_size, sizeof(e), p_n, (unsigned char*)&e, &public_key);
-// 
-    // if ( ret_create_public_key != SGX_SUCCESS) {
-    //     printf("Public key generation failed");
-    // }
 }
 
 void set_public_key(unsigned char *module) {
@@ -167,9 +162,6 @@ float generate_random_value() {
     sgx_read_rand((unsigned char *) &random_value, sizeof(unsigned int));
     return (float)random_value / (float)UINT_MAX;
 }
-
-const int WATER_MARK = 50;
-const float PROBABILITY_FAN_OUT = 0.01;
 
 int dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_all_out) {
 
