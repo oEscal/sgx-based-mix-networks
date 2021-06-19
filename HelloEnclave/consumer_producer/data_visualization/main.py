@@ -36,6 +36,9 @@ def pie_hops(data, number_mixes):
 	for i in counter:
 		print(f"{i} - {counter[i]}")
 
+	theme = plt.get_cmap('tab20c')
+	plt.axes().set_prop_cycle("color", [theme(1. * i / 20) for i in range(20)])
+
 	labels_counters = [i for i in list(counter.keys())[:10]]
 	labels_percentages = [(counter[i]*100/NUMBER_MESSAGES) for i in labels_counters]
 	labels = [f"{l}: {s:1.1f}%" for l, s in zip(labels_counters, labels_percentages)]
@@ -66,7 +69,7 @@ def scatter_dispersion_hops(dispersion, hops, number_mixes):
 
 
 def main():
-	number_mixes = 300
+	number_mixes = 200
 	data = get_data_from_file(f"data/results_{number_mixes}_100000.txt")
 
 	messages_counters = []

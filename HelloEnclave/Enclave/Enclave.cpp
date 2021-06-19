@@ -167,12 +167,16 @@ int dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_a
 
     unsigned char *message;
     float probability_false = (WATER_MARK - (float)buffer.size()) / (float)WATER_MARK;
-    *fan_out = 0;
+
+    // calculate the probability of fan out
+    if (fan_all_out || generate_random_value() < PROBABILITY_FAN_OUT)
+        *fan_out = 1;
+
     
-    if (probability_false > 0 && generate_random_value() < probability_false && !fan_all_out) {             // create a false message
+    if (!*fan_out && probability_false > 0 && generate_random_value() < probability_false) {             // create a false message
         message = (unsigned char *)"False";
         *buffer_size = buffer.size();
-    } else {                                                                                                // obtain a message from the buffer
+    } else {                                                                                                            // obtain a message from the buffer
         *buffer_size = buffer.size();
 
         if (buffer.size() < 1)
@@ -187,8 +191,7 @@ int dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_a
                                                                                               
         buffer.erase(buffer.begin() + index);
 
-        if (fan_all_out || generate_random_value() < PROBABILITY_FAN_OUT) {
-            *fan_out = 1;
+        if (*fan_out) {
             std::copy(message, message + strlen((char *) message), result);
             return 1;
         }
