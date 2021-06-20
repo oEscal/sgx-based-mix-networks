@@ -13,6 +13,7 @@
 std::mutex mtx;
 std::mutex send_message_mtx;
 
+const int WAIT_BEFORE_START = 1;            // seconds
 const int KEY_SIZE = 256;
 const int MAX_MESSAGE_LEN = KEY_SIZE + 1;
 const char *PREVIOUS_MIX_NAME = "127.0.0.1";
@@ -214,7 +215,7 @@ void Mix_Worker::start() {
 
 	// thread to receive messages
 	thread Receive_Messages_Job(&Mix_Worker::receive_messages, this);
-	sleep(1);
+	sleep(WAIT_BEFORE_START);
 
 	// create private and public key and obtain the correspondent public module
 	create_keys(this->eid, this->my_public_module);

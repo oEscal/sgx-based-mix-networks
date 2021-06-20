@@ -10,7 +10,7 @@ from Crypto.Hash import SHA256
 
 
 MESSAGE_RECV_SIZE = 261
-FAN_OUT_WAIT_TIME = 1*60
+FAN_OUT_WAIT_TIME = 2*60
 
 
 class Receiver(threading.Thread):
