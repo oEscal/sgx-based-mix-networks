@@ -1,33 +1,7 @@
-/*
- * Copyright (C) 2011-2018 Intel Corporation. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *   * Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in
- *     the documentation and/or other materials provided with the
- *     distribution.
- *   * Neither the name of Intel Corporation nor the names of its
- *     contributors may be used to endorse or promote products derived
- *     from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- */
+/***
+ * Encryption related code adapted from the one found at:
+ * https://community.intel.com/t5/Intel-Software-Guard-Extensions/Asymmetric-cryptography-in-Enclave/m-p/1196902
+ ***/
 
 
 #include <stdarg.h>
@@ -152,11 +126,6 @@ void import_message(unsigned char *message) {
     printf("Current buffer size: %d\n", buffer.size());
 }
 
-// for (int i = 0; i < strlen(MESSAGE_FALSE) + 1; i++) {
-    // 	printf("%d ", (int)content_compare[i]);
-    // }
-    // printf("\n%s\n", content_compare);
-
 float generate_random_value() {
     unsigned int random_value;
     sgx_read_rand((unsigned char *) &random_value, sizeof(unsigned int));
@@ -174,7 +143,7 @@ int dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_a
 
     
     if (!*fan_out && probability_false > 0 && generate_random_value() < probability_false) {             // create a false message
-        message = (unsigned char *)"False";
+        message = (unsigned char *) MESSAGE_FALSE;
         *buffer_size = buffer.size();
     } else {                                                                                                            // obtain a message from the buffer
         *buffer_size = buffer.size();
@@ -202,7 +171,7 @@ int dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_a
     sgx_status_t ret_get_output_len = sgx_rsa_pub_encrypt_sha256(
         previous_public_key, NULL, &out_len, message, strlen((char *) message));
 
-    if ( ret_get_output_len != SGX_SUCCESS) {
+    if (ret_get_output_len != SGX_SUCCESS) {
         printf("Determination of output length failed\n");
         return 0;
     }
@@ -210,7 +179,7 @@ int dispatch(unsigned char *result, int *fan_out, size_t *buffer_size, int fan_a
     sgx_status_t ret_encrypt = sgx_rsa_pub_encrypt_sha256(
         previous_public_key, result, &out_len, message, strlen((char *) message));
 
-    if ( ret_encrypt != SGX_SUCCESS) {
+    if (ret_encrypt != SGX_SUCCESS) {
         printf("Encryption failed\n");
         return 0;
     } else {
