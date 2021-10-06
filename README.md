@@ -1,5 +1,5 @@
-# sgx-based-mix-networks
-Hidden anonymization with SGX-based mixes
+# SGX based mix-networks
+Hidden anonymization with Intel SGX based mixes
 
 ## How to execute
 
